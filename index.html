@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Василий Кулагин — Go-разработчик. Бэкенд, highload, распределённые системы. 4+ года в продакшене.">
+<meta name="color-scheme" content="light dark">
+<title>Василий Кулагин — Go-разработчик</title>
+<style>html,body{margin:0;padding:0;height:100%;background:#08090c;}</style>
+</head>
+<body>
+<style>
+  .lq-frame { border:0; border-radius:0; overflow:hidden; }
+  .lq-os { position:relative; height:100vh; overflow:hidden; user-select:none; isolation:isolate;
+           font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","SF Pro","Helvetica Neue","Segoe UI",Roboto,sans-serif;
+           -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+           text-rendering:optimizeLegibility;
+           background:#08090c; --accent:#0d9488; --accent-soft:rgba(13,148,136,.92); --accent-glass:rgba(13,148,136,.5); }
+
+  .lq-bg { position:absolute; inset:-25%; z-index:0; filter:blur(46px); }
+  .lq-blob { position:absolute; border-radius:50%; mix-blend-mode:screen; opacity:.85; }
+  .lq-b1 { width:52%; height:58%; left:5%;  top:2%;  animation:flow1 19s ease-in-out infinite; }
+  .lq-b2 { width:46%; height:52%; right:2%; top:8%;  animation:flow2 23s ease-in-out infinite; }
+  .lq-b3 { width:56%; height:56%; left:12%; bottom:0%; animation:flow3 27s ease-in-out infinite; }
+  .lq-b4 { width:40%; height:46%; right:8%; bottom:4%; animation:flow4 21s ease-in-out infinite; }
+  @keyframes flow1 { 0%,100%{transform:translate(0,0) scale(1)}   33%{transform:translate(16%,10%) scale(1.16)} 66%{transform:translate(-8%,14%) scale(.92)} }
+  @keyframes flow2 { 0%,100%{transform:translate(0,0) scale(1.05)} 33%{transform:translate(-14%,12%) scale(.9)} 66%{transform:translate(9%,-8%) scale(1.2)} }
+  @keyframes flow3 { 0%,100%{transform:translate(0,0) scale(.95)}  33%{transform:translate(12%,-12%) scale(1.18)} 66%{transform:translate(-10%,-4%) scale(1)} }
+  @keyframes flow4 { 0%,100%{transform:translate(0,0) scale(1.1)}  33%{transform:translate(-12%,-10%) scale(.94)} 66%{transform:translate(6%,10%) scale(1.14)} }
+
+  .pal-teal   { background:#0b1120; }
+  .pal-teal   .lq-b1{background:#14b8a6} .pal-teal   .lq-b2{background:#0ea5e9}
+  .pal-teal   .lq-b3{background:#0f766e} .pal-teal   .lq-b4{background:#22d3ee}
+
+  .pal-blue   { background:#0a1428; }
+  .pal-blue   .lq-b1{background:#38bdf8} .pal-blue   .lq-b2{background:#2563eb}
+  .pal-blue   .lq-b3{background:#1e40af} .pal-blue   .lq-b4{background:#60a5fa}
+
+  .pal-coal   { background:#08090c; }
+  .pal-coal   .lq-b1{background:#2dd4bf} .pal-coal   .lq-b2{background:#0ea5e9}
+  .pal-coal   .lq-b3{background:#14b8a6} .pal-coal   .lq-b4{background:#64748b}
+  .pal-coal   .lq-blob { opacity:.62; }
+
+  .pal-amber  { background:#171310; }
+  .pal-amber  .lq-b1{background:#f59e0b} .pal-amber  .lq-b2{background:#ea580c}
+  .pal-amber  .lq-b3{background:#b45309} .pal-amber  .lq-b4{background:#fbbf24}
+
+  .lq-glass { position:relative; overflow:hidden;
+              background:linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.09));
+              backdrop-filter:blur(28px) saturate(210%) brightness(1.18);
+              -webkit-backdrop-filter:blur(28px) saturate(210%) brightness(1.18);
+              border:1px solid rgba(255,255,255,.32);
+              box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.70),
+                inset 0 -1px 0 rgba(255,255,255,.18),
+                inset 0 0 26px rgba(255,255,255,.09),
+                0 12px 38px rgba(0,0,0,.34); }
+  .lq-glass::before { content:''; position:absolute; top:0; bottom:0; width:44%; left:-60%;
+                      background:linear-gradient(105deg, transparent, rgba(255,255,255,.34), transparent);
+                      animation:sheen 7s ease-in-out infinite; pointer-events:none; }
+  @keyframes sheen { 0%,72%{left:-60%} 100%{left:130%} }
+  .lq-glass::after { content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+                     background:linear-gradient(135deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,.04) 34%, transparent 56%); }
+
+  .lq-menu { position:absolute; top:0; left:0; right:0; height:25px; z-index:9000;
+             display:flex; align-items:center; gap:16px; padding:0 14px;
+             font-size:13px; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.28);
+             background:rgba(28,30,36,.24);
+             backdrop-filter:blur(22px) saturate(175%);
+             -webkit-backdrop-filter:blur(22px) saturate(175%);
+             border-bottom:.5px solid rgba(255,255,255,.09); }
+  .lq-menu b { font-weight:650; }
+  .lq-apple { height:14px; filter:brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,.4)); }
+  @media (prefers-color-scheme: light) {
+    .lq-menu { background:rgba(250,250,252,.58); color:#1d1d1f; text-shadow:none;
+               border-bottom-color:rgba(0,0,0,.12); }
+    .lq-apple { filter:brightness(0) drop-shadow(0 1px 1px rgba(0,0,0,.15)); }
+  }
+  .lq-right { margin-left:auto; display:flex; align-items:center; gap:9px; }
+  .lq-sw { display:flex; gap:5px; }
+  .lq-sw i { width:13px; height:13px; border-radius:50%; cursor:pointer; display:block;
+             border:1.5px solid rgba(255,255,255,.75); box-shadow:0 1px 4px rgba(0,0,0,.4);
+             transition:transform .18s cubic-bezier(.2,.9,.3,1.4); }
+  .lq-sw i:hover { transform:scale(1.28); }
+  .lq-sw i.sel { transform:scale(1.3); border-color:#fff; }
+
+  .lq-icons { position:absolute; top:46px; left:18px; z-index:20; display:flex; flex-direction:column; gap:4px; }
+  .lq-ico { width:147px; padding:13px 6px; border-radius:18px; text-align:center; cursor:pointer;
+            text-decoration:none; color:inherit; display:block;
+            transition:background .2s, transform .25s cubic-bezier(.2,.9,.3,1.5); }
+  .lq-ico:hover { background:rgba(255,255,255,.16); backdrop-filter:blur(14px); transform:translateY(-3px) scale(1.04); }
+  .lq-ico.on { background:rgba(255,255,255,.26); box-shadow:inset 0 1px 0 rgba(255,255,255,.55); }
+  .lq-ico.dragging { cursor:grabbing; opacity:.92; transform:scale(1.06); transition:none; }
+  .lq-glyph { height:66px; display:flex; align-items:center; justify-content:center; font-size:52px;
+              filter:drop-shadow(0 3px 8px rgba(0,0,0,.42)); }
+  .lq-glyph img { width:66px; height:66px; object-fit:contain; }
+  .lq-cap { font-size:14px; margin-top:6px; color:#fff; line-height:1.3; text-shadow:0 1px 3px rgba(0,0,0,.65); }
+  .lq-ext { font-size:11px; opacity:.85; }
+
+  .lq-dock { position:absolute; bottom:13px; left:50%; transform:translateX(-50%); z-index:8000;
+             display:flex; gap:13px; padding:13px 16px; border-radius:30px; overflow:visible; }
+  .lq-dock-bg { position:absolute; inset:0; border-radius:30px; z-index:0;
+                background:rgba(255,255,255,.14);
+                backdrop-filter:url(#glassLG) blur(3px) saturate(190%) brightness(1.06);
+                -webkit-backdrop-filter:blur(11px) saturate(190%) brightness(1.06);
+                box-shadow:inset 2px 2px 1px 0 rgba(255,255,255,.55), inset -1px -1px 1px 1px rgba(255,255,255,.5),
+                           0 6px 6px rgba(0,0,0,.2), 0 0 22px rgba(0,0,0,.12), 0 20px 44px rgba(0,0,0,.3); }
+  .lq-dock-bg::before { content:''; position:absolute; inset:-45% -12% 5%; border-radius:50%; z-index:-1;
+                        background:radial-gradient(closest-side, rgba(45,212,191,.34), rgba(45,212,191,0) 70%);
+                        filter:blur(16px); }
+  .lq-dock-bg::after { content:''; position:absolute; left:6px; right:6px; top:4px; height:46%;
+                       border-radius:26px 26px 40px 40px; pointer-events:none;
+                       background:linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0)); }
+  .lq-app { width:62px; height:62px; border-radius:18px; display:flex; align-items:center; justify-content:center;
+            font-size:26px; cursor:pointer; position:relative; z-index:1;
+            transition:transform .22s cubic-bezier(.2,.9,.25,1.6); }
+  .lq-app img { width:54px; height:54px; object-fit:contain;
+                filter:drop-shadow(0 2px 5px rgba(0,0,0,.32)); }
+  a.lq-app { text-decoration:none; }
+  .lq-app-temp { animation:dockIn .4s cubic-bezier(.32,.72,0,1) both; transform-origin:center center; }
+  .lq-app-temp.leaving { animation:dockOut .4s cubic-bezier(.32,.72,0,1) both; pointer-events:none; }
+  @keyframes dockIn  { 0%   { width:0; margin-left:-13px; border-width:0; transform:scale(0); opacity:0; }
+                       100% { width:62px; margin-left:0; border-width:1px; transform:scale(1); opacity:1; } }
+  @keyframes dockOut { 0%   { width:62px; margin-left:0; border-width:1px; transform:scale(1); opacity:1; }
+                       58%  { width:0; margin-left:-13px; border-width:0; transform:scale(.24); opacity:.24; }
+                       100% { width:0; margin-left:-13px; border-width:0; transform:scale(0); opacity:0; } }
+  .lq-app.running::before { transition:opacity .3s ease, transform .3s ease; }
+
+  .lq-sep { width:1px; align-self:stretch; margin:2px 3px; z-index:1;
+            background:linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0)); }
+
+  .lq-app::after { content:attr(data-label); position:absolute; bottom:calc(100% + 9px); left:50%;
+                   transform:translateX(-50%) scale(.85);
+                   white-space:nowrap; padding:4px 9px; border-radius:5px;
+                   font-size:13px; font-weight:400; color:#f2f2f5;
+                   background:rgba(42,42,46,.86);
+                   backdrop-filter:blur(20px) saturate(180%);
+                   -webkit-backdrop-filter:blur(20px) saturate(180%);
+                   border:.5px solid rgba(255,255,255,.16);
+                   box-shadow:0 3px 10px rgba(0,0,0,.35);
+                   opacity:0; pointer-events:none; transition:opacity .12s ease; }
+  .lq-app:hover::after { opacity:1; }
+
+  .lq-app.running::before { content:''; position:absolute; bottom:-7px; left:50%;
+                            transform:translateX(-50%); width:4px; height:4px; border-radius:50%;
+                            background:rgba(255,255,255,.9); box-shadow:0 0 5px rgba(255,255,255,.55); }
+  .lq-app:hover { transform:translateY(-11px) scale(1.18); }
+  .lq-app.near { transform:translateY(-2px) scale(1.05); }
+  .lq-app:active { transform:translateY(-5px) scale(1.04); }
+
+  .lq-win { position:absolute; z-index:100; width:min(540px,72%); border-radius:18px; overflow:hidden;
+            background:linear-gradient(150deg, rgba(255,255,255,.58), rgba(255,255,255,.44));
+            backdrop-filter:url(#lqRefract) blur(40px) saturate(210%);
+            -webkit-backdrop-filter:blur(40px) saturate(210%);
+            border:1px solid rgba(255,255,255,.6);
+            box-shadow:
+              inset 0 1px 0 rgba(255,255,255,.9),
+              inset 0 -1px 0 rgba(255,255,255,.3),
+              0 34px 78px rgba(0,0,0,.44), 0 5px 14px rgba(0,0,0,.24);
+            transform-origin:50% 100%;
+            animation:pop .42s cubic-bezier(.32,.72,0,1) both; }
+  @keyframes pop { 0%{opacity:0; transform:scale(.92) translateY(10px); filter:blur(4px)}
+                   100%{opacity:1; transform:scale(1) translateY(0); filter:blur(0)} }
+  .lq-bar { display:flex; align-items:center; gap:9px; padding:12px 15px; cursor:grab; position:relative;
+            background:linear-gradient(rgba(255,255,255,.46), rgba(255,255,255,.18));
+            border-bottom:1px solid rgba(255,255,255,.38); }
+  .lq-bar:active { cursor:grabbing; }
+  .lq-dots { display:flex; gap:8px; }
+  .lq-dots i { width:12px; height:12px; border-radius:50%; display:block; cursor:pointer;
+               box-shadow:inset 0 1px 1px rgba(255,255,255,.65), inset 0 0 0 .5px rgba(0,0,0,.13); }
+  .lq-red{background:#ff5f57}.lq-yel{background:#febc2e}.lq-grn{background:#28c840}
+  .lq-title { flex:1; text-align:center; margin-right:42px; font-size:12.5px; font-weight:650; color:#2f2f36; }
+  .lq-win.max { left:8px !important; top:34px !important; right:8px; bottom:112px; width:auto !important; height:auto;
+                border-radius:14px; display:flex; flex-direction:column; transition:all .42s cubic-bezier(.32,.72,0,1); }
+  .lq-win.max .lq-bar { cursor:default; }
+  .lq-win.max .lq-body { max-height:none; flex:1; }
+  .lq-body { padding:20px 24px 24px; overflow-y:auto; max-height:400px; font-size:13px; line-height:1.75; color:#2b2b32; }
+  .lq-body h3 { margin:0 0 4px; font-size:23px; color:#101013; letter-spacing:-.6px; }
+  .lq-body .role { color:let(--accent); font-weight:650; font-size:13.5px; margin-bottom:12px; }
+  .lq-about { display:flex; flex-direction:column; gap:22px; max-width:760px; margin:0 auto; width:100%; }
+  .lq-hero { display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px; }
+  .lq-avatar { width:128px; height:128px; border-radius:30px; object-fit:cover; flex:none;
+               box-shadow:0 10px 26px rgba(0,0,0,.30); transition:all .42s cubic-bezier(.32,.72,0,1); }
+  .lq-hero-t { min-width:0; }
+  .lq-hero-t h3 { margin:0 0 5px; font-size:25px; transition:font-size .42s cubic-bezier(.32,.72,0,1); }
+  .lq-hero-t .role { margin:0; color:let(--accent); font-weight:650;
+                     transition:font-size .42s cubic-bezier(.32,.72,0,1); }
+  .lq-facts { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; }
+  .lq-facts span { font-size:11.5px; font-weight:600; padding:5px 12px; border-radius:20px; color:#33333c;
+                   background:linear-gradient(155deg, rgba(255,255,255,.55), rgba(255,255,255,.26));
+                   backdrop-filter:blur(11px) saturate(180%); -webkit-backdrop-filter:blur(11px) saturate(180%);
+                   border:.5px solid rgba(255,255,255,.6);
+                   box-shadow:inset 0 1px 0 rgba(255,255,255,.95), 0 2px 7px rgba(0,0,0,.09);
+                   transition:all .42s cubic-bezier(.32,.72,0,1); }
+  .lq-facts span.hot { }
+  .lq-bio { display:flex; flex-direction:column; gap:20px; }
+  .lq-sec h4 { margin:0 0 6px; font-size:12px; font-weight:700; letter-spacing:.6px;
+               text-transform:uppercase; color:let(--accent);
+               transition:font-size .42s cubic-bezier(.32,.72,0,1); }
+  .lq-sec p { margin:0; font-size:14px; line-height:1.7; color:#2f2f37;
+              transition:font-size .42s cubic-bezier(.32,.72,0,1); }
+  .lq-sec p b { color:#101013; font-weight:650; }
+  .lq-win.max .lq-about { max-width:860px; gap:34px; }
+  .lq-win.max .lq-avatar { width:190px; height:190px; border-radius:42px; }
+  .lq-win[data-win="stack"].max .lq-avatar { width:140px; height:140px; border-radius:32px; }
+  .lq-win.max .lq-hero-t h3 { font-size:42px; margin-bottom:8px; }
+  .lq-win.max .lq-hero-t .role { font-size:19px; }
+  .lq-win.max .lq-facts span { font-size:14px; padding:7px 15px; }
+  .lq-win.max .lq-bio { gap:30px; }
+  .lq-win.max .lq-sec h4 { font-size:14px; margin-bottom:9px; }
+  .lq-win.max .lq-sec p { font-size:19px; line-height:1.75; }
+  .lq-bio ul { margin:2px 0 0; }
+  .lq-bio code { font:.88em ui-monospace,Menlo,monospace; color:#3a3a52;
+                 background:rgba(0,0,0,.055); padding:1px 5px; border-radius:5px; }
+  .lq-techs { display:flex; flex-wrap:wrap; gap:7px; margin-top:2px; }
+  .lq-techs span { font-size:12.5px; font-weight:600; padding:6px 14px; border-radius:20px; color:#33333c;
+                   background:linear-gradient(155deg, rgba(255,255,255,.55), rgba(255,255,255,.26));
+                   backdrop-filter:blur(11px) saturate(180%); -webkit-backdrop-filter:blur(11px) saturate(180%);
+                   border:.5px solid rgba(255,255,255,.6);
+                   box-shadow:inset 0 1px 0 rgba(255,255,255,.95), 0 2px 7px rgba(0,0,0,.09);
+                   transition:all .42s cubic-bezier(.32,.72,0,1); }
+  .lq-win.max .lq-techs span { font-size:15.5px; padding:8px 17px; }
+  .lq-job h4 { margin:0 0 3px; font-size:17px; color:#101013; letter-spacing:-.3px;
+               transition:font-size .42s cubic-bezier(.32,.72,0,1); }
+  .lq-job .jrole { color:let(--accent); font-weight:650; font-size:13.5px;
+                   transition:font-size .42s cubic-bezier(.32,.72,0,1); }
+  .lq-job .jmeta { color:#8a8a92; font-size:12px; margin-top:2px;
+                   transition:font-size .42s cubic-bezier(.32,.72,0,1); }
+  .lq-job .jctx { color:#55555e; font-size:13px; margin:10px 0 4px;
+                  transition:font-size .42s cubic-bezier(.32,.72,0,1); }
+  .lq-job ul { margin:6px 0 12px; }
+  .lq-bio .lq-job + .lq-job { margin-top:4px; padding-top:22px; border-top:.5px solid rgba(0,0,0,.08); }
+  .lq-win.max .lq-job h4 { font-size:24px; }
+  .lq-win.max .lq-job .jrole { font-size:17px; }
+  .lq-win.max .lq-job .jmeta { font-size:14.5px; }
+  .lq-win.max .lq-job .jctx { font-size:17px; }
+  .lq-bio .lq-gh { align-self:center; margin-top:4px; }
+  .lq-win.max .lq-bio li { font-size:17px; line-height:1.65; margin-bottom:8px; }
+  .lq-win.max .lq-bio pre { font-size:13.5px; padding:16px 18px; }
+  .lq-win.max .lq-bio .lq-gh { font-size:16px; padding:11px 22px; }
+  .lq-body h4 { margin:16px 0 6px; font-size:14px; color:#101013; }
+  .lq-body ul { margin:6px 0; padding-left:17px; }
+  .lq-body li { margin-bottom:5px; }
+  .lq-fold { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:6px 2px; }
+  .lq-file { display:flex; flex-direction:column; align-items:center; gap:8px; padding:14px 8px;
+             border-radius:13px; cursor:pointer; text-align:center; transition:background .15s, transform .15s; }
+  .lq-file:hover { background:rgba(0,0,0,.055); transform:translateY(-2px); }
+  .lq-file img { width:58px; height:58px; filter:drop-shadow(0 4px 8px rgba(0,0,0,.18)); }
+  .lq-file span { font-size:11.5px; font-weight:650; color:#33333b; word-break:break-word; line-height:1.25; }
+  .lq-gh { position:relative; overflow:hidden; display:inline-block; margin-top:14px; padding:11px 22px;
+           border-radius:24px; font-size:13px; font-weight:700; color:#0c6a62; text-decoration:none;
+           background:rgba(255,255,255,.04);
+           backdrop-filter:blur(7px) saturate(155%);
+           -webkit-backdrop-filter:blur(7px) saturate(155%);
+           border:1px solid rgba(255,255,255,.3);
+           box-shadow:inset 0 1px 1px rgba(255,255,255,.32), 0 4px 12px rgba(0,0,0,.13);
+           transition:transform .3s cubic-bezier(.175,.885,.32,1.9), box-shadow .3s, background .3s; }
+  .lq-gh:hover { transform:translateY(-3px) scale(1.04); background:rgba(255,255,255,.1);
+                 box-shadow:inset 0 1px 1px rgba(255,255,255,.45), 0 8px 20px rgba(0,0,0,.18); }
+  .lq-body b { color:#101013; }
+  .lq-body pre { font:9.5px/1.6 ui-monospace,Menlo,monospace; color:#494952; margin:10px 0; padding:11px;
+                 border-radius:10px; overflow-x:auto; background:rgba(255,255,255,.5);
+                 border:1px solid rgba(255,255,255,.7); box-shadow:inset 0 1px 0 rgba(255,255,255,.85); }
+  .lq-cm { color:let(--accent); font:12px ui-monospace,Menlo,monospace; }
+  .lq-per { color:#8a8a92; font-weight:400; font-size:11.5px; }
+  .lq-hr { height:1px; background:rgba(0,0,0,.09); margin:20px 0 4px; }
+  .lq-tags { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0 10px; }
+  .lq-tags i { font-style:normal; font-size:10.5px; padding:4px 10px; border-radius:20px; color:#3e3e47;
+               background:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.78);
+               box-shadow:inset 0 1px 0 rgba(255,255,255,.95); }
+  .lq-links { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .lq-links a { position:relative; overflow:hidden; font-size:12.5px; font-weight:600; padding:11px 20px;
+                border-radius:24px; text-decoration:none; color:#20202a;
+                background:rgba(255,255,255,.04);
+                backdrop-filter:blur(7px) saturate(155%);
+                -webkit-backdrop-filter:blur(7px) saturate(155%);
+                border:1px solid rgba(255,255,255,.3);
+                box-shadow:inset 0 1px 1px rgba(255,255,255,.32), 0 4px 12px rgba(0,0,0,.13);
+                transition:transform .3s cubic-bezier(.175,.885,.32,1.9), box-shadow .3s, background .3s; }
+  .lq-links a:hover { transform:translateY(-3px) scale(1.04); background:rgba(255,255,255,.1);
+                      box-shadow:inset 0 1px 1px rgba(255,255,255,.45), 0 8px 20px rgba(0,0,0,.18); }
+  .lq-links a.hot { }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="lqRefract" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.014" numOctaves="2" seed="7" result="noise">
+      <animate attributeName="baseFrequency" dur="18s"
+               values="0.008 0.014; 0.013 0.008; 0.008 0.014" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="11" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="glassLG" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.009 0.011" numOctaves="2" seed="5" result="noise"/>
+    <feGaussianBlur in="noise" stdDeviation="1.6" result="blurNoise"/>
+    <feDisplacementMap in="SourceGraphic" in2="blurNoise" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<div class="lq-frame">
+  <div class="lq-os pal-coal" id="lqOS">
+
+    <div class="lq-bg">
+      <div class="lq-blob lq-b1"></div><div class="lq-blob lq-b2"></div>
+      <div class="lq-blob lq-b3"></div><div class="lq-blob lq-b4"></div>
+    </div>
+
+    <div class="lq-menu">
+      <img class="lq-apple" src="assets/apple.png" alt="">
+      <b>Finder</b><span>Файл</span><span>Правка</span><span>Вид</span>
+      <span class="lq-right">
+        <span id="lqClock">09:41</span>
+      </span>
+    </div>
+
+    <div class="lq-icons">
+      <div class="lq-ico" data-win="about"><div class="lq-glyph"><img src="assets/txt.png" alt=""></div><div class="lq-cap">обо_мне.txt</div></div>
+      <div class="lq-ico" data-win="projects"><div class="lq-glyph"><img src="assets/folder-git.png" alt=""></div><div class="lq-cap">Проекты</div></div>
+      <div class="lq-ico" data-win="stack"><div class="lq-glyph"><img src="assets/gear.png" alt=""></div><div class="lq-cap">стек.cfg</div></div>
+      <div class="lq-ico" data-win="exp"><div class="lq-glyph"><img src="assets/xcode.png" alt=""></div><div class="lq-cap">Опыт</div></div>
+      <div class="lq-ico" data-win="edu"><div class="lq-glyph"><img src="assets/edu.png" alt=""></div><div class="lq-cap">Образование</div></div>
+      <div class="lq-ico" data-win="contact"><div class="lq-glyph"><img src="assets/vcard.png" alt=""></div><div class="lq-cap">контакты</div></div>
+      <a class="lq-ico" href="https://hh.ru/resume/8091e8ecff09eef9150039ed1f69554c743242" target="_blank" rel="noopener">
+        <div class="lq-glyph"><img src="assets/hh.png" alt=""></div><div class="lq-cap">резюме<div class="lq-ext">→ hh.ru</div></div>
+      </a>
+    </div>
+
+    <div class="lq-dock" id="lqDock">
+      <div class="lq-dock-bg lq-glass"></div>
+      <div class="lq-app" data-win="about" data-label="Обо мне"><img src="assets/txt.png" alt=""></div>
+      <div class="lq-app" data-win="projects" data-label="Проекты"><img src="assets/folder-git.png" alt=""></div>
+      <div class="lq-app" data-win="stack" data-label="Стек"><img src="assets/gear.png" alt=""></div>
+      <div class="lq-app" data-win="exp" data-label="Опыт"><img src="assets/xcode.png" alt=""></div>
+      <div class="lq-app" data-win="edu" data-label="Образование"><img src="assets/edu.png" alt=""></div>
+      <div class="lq-app" data-win="contact" data-label="Контакты"><img src="assets/vcard.png" alt=""></div>
+      <div class="lq-sep"></div>
+      <a class="lq-app" href="https://github.com/YNGXZRIST" target="_blank" rel="noopener" data-label="GitHub"><img src="assets/github.png" alt=""></a>
+      <a class="lq-app" href="https://t.me/xzrist" target="_blank" rel="noopener" data-label="Написать в Telegram"><img src="assets/telegram.png" alt=""></a>
+      <a class="lq-app" href="mailto:vascool66@icloud.com" data-label="vascool66@icloud.com"><img src="assets/email.png" alt=""></a>
+      <a class="lq-app" href="https://hh.ru/resume/8091e8ecff09eef9150039ed1f69554c743242" target="_blank" rel="noopener" data-label="Резюме на hh.ru"><img src="assets/hh.png" alt=""></a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  let os = document.getElementById('lqOS');
+  if (!os) return;
+
+  let dock = document.getElementById('lqDock');
+  let apps = [].slice.call(dock.querySelectorAll('.lq-app'));
+  apps.forEach(function (a, idx) {
+    a.addEventListener('mouseenter', function () {
+      apps.forEach(function (b, j) { b.classList.toggle('near', Math.abs(j - idx) === 1); });
+    });
+  });
+  dock.addEventListener('mouseleave', function () { apps.forEach(function (b) { b.classList.remove('near'); }); });
+
+  let DATA = {
+    about: { t: 'обо_мне.txt', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/avatar.png" alt="Василий Кулагин">' +
+      '<div class="lq-hero-t"><h3>Василий Кулагин</h3><div class="role">Fullstack-разработчик с уклоном в highload и AI</div>' +
+      '<div class="lq-facts"><span>Опыт 5+ лет</span><span>Go · PHP · Vue.js</span><span>Калининград</span><span>Удалённо · командировки</span><span class="hot">Открыт к предложениям</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-sec"><h4>О себе</h4><p>Fullstack-разработчик с уклоном в highload и AI. Пишу на PHP (Yii, Laravel) и Go, делаю фронтенд на Vue.js, проектирую REST API и архитектуру сервисов, работаю с MySQL и Redis. За плечами — highload-платформа автоматизации контекстной рекламы, которую я развивал и поддерживал: от фоновых воркеров и биллинга до систем анализа рекламных кампаний и автоматических аудитов.</p></div>' +
+      '<div class="lq-sec"><h4>Код и AI</h4><p>Отдельно люблю задачи на стыке кода и AI: строю интеграции с LLM, MCP-системы и ИИ-ассистентов, занимаюсь оркестрацией агентов и пишу кастомные скиллы. Мне интересно превращать «умные» модели в реальные рабочие инструменты, которые экономят людям время.</p></div>' +
+      '<div class="lq-sec"><h4>Подход к работе</h4><p>Веду задачу полным циклом: согласование ТЗ и сбор требований, оценка и согласование сроков, выбор технических решений и архитектуры, разработка и вывод в продакшен. Ценю чистый и поддерживаемый код, продумываю архитектуру и не маскирую баги, а ищу их корневую причину. Привык брать ответственность за результат и общаться с заказчиком напрямую.</p></div>' +
+      '<div class="lq-sec"><h4>Бэкграунд</h4><p>Окончил бакалавриат БФУ им. И. Канта по направлению «Прикладная математика и информатика». Математическая база помогает мне в задачах, где важны алгоритмы, аналитика и работа с данными.</p></div>' +
+      '</div></div>' },
+    projects: { t: 'Проекты', h: '<div class="lq-fold">' +
+      '<div class="lq-file" data-win="p_profile"><img src="assets/proj-profile.png" alt=""><span>GophProfile</span></div>' +
+      '<div class="lq-file" data-win="p_keeper"><img src="assets/proj-keeper.png" alt=""><span>GophKeeper</span></div>' +
+      '<div class="lq-file" data-win="p_metrics"><img src="assets/proj-metrics.png" alt=""><span>sys-metrics</span></div>' +
+      '<div class="lq-file" data-win="p_loyalty"><img src="assets/proj-loyalty.png" alt=""><span>gophermart-loyalty</span></div>' +
+      '</div>' },
+    p_profile: { t: 'GophProfile', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/proj-profile.png" alt="GophProfile">' +
+      '<div class="lq-hero-t"><h3>GophProfile</h3><div class="role">Микросервис управления аватарками</div>' +
+      '<div class="lq-facts"><span>Go 1.26</span><span>PostgreSQL 16</span><span>RabbitMQ</span><span>S3 / MinIO</span><span>Docker</span><span>golang-migrate</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-sec"><h4>О проекте</h4><p>Микросервис для загрузки, хранения, асинхронной обработки и раздачи аватарок пользователей. Пользователь один раз загружает изображение, а сторонние платформы получают его в нужном размере по REST API. Оригинал сохраняется в S3, метаданные — в PostgreSQL, а миниатюры <b>100×100</b> и <b>300×300</b> генерируются асинхронно через RabbitMQ и отдельный worker. Отдаёт как бинарные данные картинки, так и JSON-метаданные, плюс простой веб-интерфейс.</p></div>' +
+      '<div class="lq-sec"><h4>Архитектура</h4><pre>POST /avatars ─▶ server ──tx──▶ PostgreSQL (avatars + outbox)\n                  │ upload              │ outbox\n                  ▼                     ▼\n                 S3          publisher ─▶ RabbitMQ ─▶ consumer\n                                                        │\n                                          resize / delete ─▶ S3 + PostgreSQL</pre>' +
+      '<p>server кладёт оригинал в S3 и в одной транзакции пишет запись аватарки и событие в таблицу <code>outbox</code>. publisher вычитывает неопубликованные события из outbox и шлёт их в RabbitMQ. consumer генерирует миниатюры (параллельно) или удаляет файлы, обновляя статус <code>pending → running → success/failed</code>. Сообщения с ошибкой уходят в DLQ.</p></div>' +
+      '<div class="lq-sec"><h4>Что внутри</h4><ul><li><b>Transactional Outbox</b> — запись в БД и постановка события в очередь в одной транзакции, событие не потеряется (at-least-once)</li><li><b>Идемпотентность</b> обработчиков и отдельные очереди <b>DLX / DLQ</b> для «отравленных» сообщений</li><li>Асинхронная генерация миниатюр и удаление файлов через worker</li><li>Health-check БД, S3 и брокера</li><li>HTTP на голом stdlib <code>net/http</code> (ServeMux, Go 1.22 patterns), условные запросы <code>ETag</code> / <code>304</code></li></ul></div>' +
+      '<div class="lq-sec"><h4>Стек</h4><ul><li><b>Go 1.26</b> — язык, HTTP на stdlib <code>net/http</code></li><li><b>PostgreSQL 16</b> — метаданные аватарок и таблица outbox</li><li><b>RabbitMQ 3.13</b> — direct exchange + DLX/DLQ</li><li><b>S3 / MinIO</b> — хранение оригиналов и миниатюр</li><li><b>golang-migrate</b> — SQL-миграции</li><li><b>Docker / Docker Compose</b> — всё окружение одной командой</li></ul></div>' +
+      '<a class="lq-gh" href="https://github.com/YNGXZRIST/gophprofile" target="_blank" rel="noopener">→ Открыть на GitHub</a>' +
+      '</div></div>' },
+    p_keeper: { t: 'GophKeeper', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/proj-keeper.png" alt="GophKeeper">' +
+      '<div class="lq-hero-t"><h3>GophKeeper</h3><div class="role">Менеджер секретов с клиент-серверной архитектурой</div>' +
+      '<div class="lq-facts"><span>Go 1.26</span><span>gRPC</span><span>TLS</span><span>PostgreSQL</span><span>SQLite</span><span>bubbletea</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-sec"><h4>О проекте</h4><p>Хранит логины/пароли, произвольный текст, бинарные файлы и банковские карты — к каждой записи можно добавить текстовую метаинформацию (сайт, банк, заметку). Клиент работает в терминале под Windows, Linux и macOS; сервер хранит данные и синхронизирует их между всеми устройствами одного владельца. Весь обмен идёт по <b>gRPC поверх обязательного TLS</b>.</p></div>' +
+      '<div class="lq-sec"><h4>Архитектура</h4><pre>┌───────────────┐   gRPC + TLS   ┌──────────┐     ┌────────────┐\n│ Клиент (TUI)  │ ─────────────▶ │  Сервер  │ ──▶ │ PostgreSQL │\n│ SQLite (кэш)  │ ◀───────────── │          │     └────────────┘\n└───────────────┘  синхронизация └──────────┘</pre>' +
+      '<p>Клиент — интерактивный TUI на <code>bubbletea</code>, держит локальный кэш в SQLite и синхронизирует его с сервером. TLS обязателен с обеих сторон: сертификат self-signed, публичный вшит в клиент через <code>go:embed</code>, приватный ключ остаётся только на сервере и в git не попадает (генерируется утилитой <code>cmd/certgen</code>).</p></div>' +
+      '<div class="lq-sec"><h4>Что внутри</h4><ul><li>Регистрация, аутентификация и авторизация (JWT: <b>access + refresh</b>)</li><li>Четыре типа данных с произвольной метаинформацией: логин/пароль, текст, бинарные файлы, банковские карты</li><li>Синхронизация данных между несколькими клиентами одного владельца</li><li>Терминальный интерфейс (TUI)</li><li>Кросс-компиляция клиента под Windows / Linux / macOS (amd64 + arm64), адрес сервера вшивается на сборке, <code>client --version</code></li></ul></div>' +
+      '<div class="lq-sec"><h4>Стек</h4><ul><li><b>Go 1.26</b> — язык клиента и сервера</li><li><b>gRPC + TLS</b> — транспорт с обязательным шифрованием</li><li><b>PostgreSQL</b> — хранилище на сервере</li><li><b>SQLite</b> — локальный кэш клиента</li><li><b>bubbletea</b> — терминальный интерфейс</li><li><b>Docker</b> — PostgreSQL для локального запуска</li></ul></div>' +
+      '<a class="lq-gh" href="https://github.com/YNGXZRIST/gophkeeper" target="_blank" rel="noopener">→ Открыть на GitHub</a>' +
+      '</div></div>' },
+    p_metrics: { t: 'sys-metrics', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/proj-metrics.png" alt="sys-metrics">' +
+      '<div class="lq-hero-t"><h3>sys-metrics</h3><div class="role">Сбор и хранение метрик: агент + сервер</div>' +
+      '<div class="lq-facts"><span>Go 1.26</span><span>HTTP REST</span><span>gRPC</span><span>protobuf</span><span>PostgreSQL</span><span>Docker</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-sec"><h4>О проекте</h4><p>Сервис для сбора и хранения метрик с машины, на которой запущен агент. Агент периодически снимает показатели (память, CPU, счётчики опроса) и отправляет их на сервер. Сервер сохраняет метрики и отдаёт их через HTTP или gRPC. Проект из курса «Go-разработчик» (Яндекс Практикум), трек «Сервер сбора метрик и алертинга».</p></div>' +
+      '<div class="lq-sec"><h4>Архитектура</h4><pre>┌─────────┐   HTTP / gRPC   ┌──────────────┐\n│  agent  │ ──────────────▶ │    server    │\n└────┬────┘                 └──────┬───────┘\n     │ опрос runtime.Metrics       │ пишет в\n     ▼                             ▼\n локальная машина        память / файл / PostgreSQL</pre>' +
+      '<p>Агент раз в <code>POLL_INTERVAL</code> опрашивает систему и раз в <code>REPORT_INTERVAL</code> отправляет пачку метрик. Сервер — один процесс: HTTP (REST) и gRPC (protobuf) на разных портах.</p></div>' +
+      '<div class="lq-sec"><h4>Что внутри</h4><ul><li>HTTP REST и gRPC в одном процессе на разных портах</li><li>Сменное хранилище: <b>память → файл-бэкап → PostgreSQL</b>, восстановление метрик при старте</li><li>Подпись запросов <b>SHA-256</b> и RSA-шифрование тела (утилита <code>cmd/keygenerator</code>)</li><li>gRPC-интерсепторы: <code>x-real-ip</code>, проверка доверенной подсети по CIDR, rate limit параллельной отправки</li><li>Конфигурация по приоритету: флаги → env → JSON-файл</li></ul></div>' +
+      '<div class="lq-sec"><h4>Стек</h4><ul><li><b>Go 1.26</b> — агент и сервер</li><li><b>net/http</b> — REST API</li><li><b>gRPC + protobuf</b> — второй транспорт</li><li><b>PostgreSQL</b> — опциональное хранилище (<code>DATABASE_DSN</code>)</li><li><b>Docker</b> — integration-тесты и автотесты с БД</li></ul></div>' +
+      '<a class="lq-gh" href="https://github.com/YNGXZRIST/sys-metrics" target="_blank" rel="noopener">→ Открыть на GitHub</a>' +
+      '</div></div>' },
+    p_loyalty: { t: 'gophermart-loyalty', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/proj-loyalty.png" alt="gophermart-loyalty">' +
+      '<div class="lq-hero-t"><h3>gophermart-loyalty</h3><div class="role">Бэкенд программы лояльности интернет-магазина</div>' +
+      '<div class="lq-facts"><span>Go</span><span>PostgreSQL</span><span>REST API</span><span>OpenAPI</span><span>GitHub Actions</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-sec"><h4>О проекте</h4><p>Backend для программы лояльности Gophermart: регистрирует и авторизует пользователей, принимает номера заказов, периодически запрашивает внешний <b>accrual-сервис</b> по статусу начислений, начисляет баллы на баланс, обрабатывает списания и хранит историю выводов. HTTP API описан спецификацией OpenAPI (<code>openapi.yaml</code>).</p></div>' +
+      '<div class="lq-sec"><h4>Архитектура</h4><pre>client ─▶ REST API ──▶ PostgreSQL\n              │\n              ▼  фоновый опрос\n      accrual-сервис (внешний) ─▶ начисление баллов на баланс</pre>' +
+      '<p>Заказы принимаются через REST, а фоновый процесс опрашивает внешний accrual-сервис и по мере готовности начисляет баллы, обновляя баланс пользователя.</p></div>' +
+      '<div class="lq-sec"><h4>Что внутри</h4><ul><li>Регистрация и авторизация пользователей</li><li>Приём номеров заказов пользователя</li><li>Периодический опрос внешнего accrual-сервиса по статусу начислений</li><li>Начисление баллов на баланс</li><li>Списания и хранение истории выводов</li><li>HTTP API по спецификации OpenAPI</li></ul></div>' +
+      '<div class="lq-sec"><h4>Стек</h4><ul><li><b>Go</b> — язык сервиса</li><li><b>PostgreSQL</b> — пользователи, заказы, баланс и история</li><li><b>REST API</b> — по спецификации <code>openapi.yaml</code></li><li><b>GitHub Actions</b> — CI: сборка и статический анализ</li></ul></div>' +
+      '<a class="lq-gh" href="https://github.com/YNGXZRIST/gophermart-loyalty" target="_blank" rel="noopener">→ Открыть на GitHub</a>' +
+      '</div></div>' },
+    stack: { t: 'стек.cfg', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/gear.png" alt="Стек">' +
+      '<div class="lq-hero-t"><h3>Технический стек</h3><div class="role">Бэкенд · highload · распределённые системы · AI</div>' +
+      '<div class="lq-facts"><span>Go</span><span>PHP</span><span>Vue.js</span><span>PostgreSQL</span><span>RabbitMQ</span><span>Docker</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-sec"><h4>Языки</h4><div class="lq-techs"><span>Go</span><span>PHP 7/8</span><span>Yii</span><span>Laravel</span><span>JavaScript</span><span>Python</span><span>SQL</span></div></div>' +
+      '<div class="lq-sec"><h4>API и транспорт</h4><div class="lq-techs"><span>gRPC</span><span>protobuf</span><span>REST</span><span>net/http</span><span>OpenAPI</span><span>WebSocket</span></div></div>' +
+      '<div class="lq-sec"><h4>Фронтенд</h4><div class="lq-techs"><span>Vue.js</span><span>jQuery</span><span>HTML</span><span>CSS</span></div></div>' +
+      '<div class="lq-sec"><h4>Хранилища</h4><div class="lq-techs"><span>PostgreSQL</span><span>MySQL</span><span>Redis</span><span>SQLite</span><span>S3 / MinIO</span></div></div>' +
+      '<div class="lq-sec"><h4>Очереди и надёжность</h4><div class="lq-techs"><span>RabbitMQ</span><span>DLX / DLQ</span><span>transactional outbox</span><span>идемпотентность</span></div></div>' +
+      '<div class="lq-sec"><h4>Инфраструктура</h4><div class="lq-techs"><span>Docker</span><span>Compose</span><span>Linux</span><span>Git</span><span>GitHub Actions</span><span>golang-migrate</span></div></div>' +
+      '<div class="lq-sec"><h4>AI</h4><div class="lq-techs"><span>LLM-интеграции</span><span>MCP</span><span>оркестрация агентов</span></div></div>' +
+      '</div></div>' },
+    exp: { t: 'Опыт', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/xcode.png" alt="Опыт работы">' +
+      '<div class="lq-hero-t"><h3>Опыт работы</h3><div class="role">5+ лет в продакшене · бэкенд, highload, AI</div>' +
+      '<div class="lq-facts"><span>Go</span><span>PHP</span><span>highload</span><span>AI · LLM</span><span>Vue.js</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-job"><h4>R-брокер</h4><div class="jrole">Фуллстек-разработчик · PHP / Go (Yii, Vue.js)</div><div class="jmeta">Москва · март 2023 — настоящее время</div>' +
+      '<p class="jctx">Highload-платформа автоматизации контекстной рекламы</p>' +
+      '<ul><li>Принимал ключевые технические решения в проекте и нёс ответственность за результат: общение с заказчиками, сбор и уточнение требований, оценка и согласование сроков, выбор технических решений и архитектуры.</li>' +
+      '<li>Разрабатывал и поддерживал серверную часть highload-системы управления рекламой (Яндекс.Директ, Google Ads, Avito) на Yii: десятки фоновых воркеров и крон-задач — биллинг, синхронизация контрагентов, проверки аккаунтов, прогнозы, сбор статистики по кампаниям.</li>' +
+      '<li>Разрабатывал систему анализа рекламных кампаний Яндекс.Директа: сбор и агрегация статистики, расчёт метрик эффективности (CR, CPA, конверсии), построение воронок и выявление значимых изменений для оптимизации рекламы.</li>' +
+      '<li>Реализовал систему автоматических аудитов и отчётов для рекламодателей.</li>' +
+      '<li>Разрабатывал микросервисы на <b>Go</b>: анализ и подсчёт токенов, конвертация данных для компактной передачи в LLM.</li>' +
+      '<li>Проектировал и развивал MCP-системы: серверное исполнение MCP-задач (очередь, процессы, отчётные файлы), MCP-ассистенты для подсказок и рекомендаций по кампаниям.</li>' +
+      '<li>Разработал систему оркестрации ИИ и чатов: маршрутизация запросов между специализированными агентами и LLM, ведение контекста диалогов, потоковые ответы и вызов инструментов для автоматизации задач по управлению рекламой.</li>' +
+      '<li>Разрабатывал интеграцию с партнёрской программой на основе скиллов ИИ-агента: писал кастомные скиллы (навыки агента) для внешней компании-партнёра, расширяя возможности автоматизации под их задачи.</li>' +
+      '<li>Создавал браузерные плагины (Chrome-расширения) поверх кабинета Яндекс.Директа — инструменты для маркетологов с ассистентами на базе MCP.</li>' +
+      '<li>Разрабатывал Telegram-интеграции (вебхуки, уведомления, система дежурств) для оперативного управления и контроля рекламных кампаний.</li>' +
+      '<li>Исправлял выявленные баги с фокусом на корневую причину (пример: переписал применение орфографических правок объявлений, устранив ~95% сбоев).</li></ul>' +
+      '<div class="lq-techs"><span>PHP</span><span>Yii1/Yii2</span><span>Laravel</span><span>Go</span><span>Python</span><span>Vue.js</span><span>MCP</span><span>LLM</span><span>MySQL</span><span>JavaScript</span><span>REST API</span></div></div>' +
+      '<div class="lq-job"><h4>TonyLead Company</h4><div class="jrole">Backend-разработчик · Laravel / PHP</div><div class="jmeta">ноябрь 2021 — октябрь 2023</div>' +
+      '<p class="jctx">Бэкенд API для мобильных приложений</p>' +
+      '<ul><li>Разрабатывал серверную часть (REST API) для мобильных приложений на Laravel: проектирование эндпоинтов, бизнес-логики, авторизации и интеграций для iOS/Android-клиентов.</li>' +
+      '<li>Разработал бэкенд приложения юридических услуг: API для подбора и заказа услуг, пользовательские профили, обработка заявок и взаимодействие клиента со специалистами.</li>' +
+      '<li>Разработал бэкенд приложения для беременных BabyScope: API для трекинга срока и развития, персонализированного контента и push-уведомлений пользователям.</li>' +
+      '<li>Использовал Redis для кеширования, ускорения ответов API и хранения сессионных и временных данных под нагрузкой.</li>' +
+      '<li>Проектировал структуру БД, писал миграции и оптимизировал запросы.</li>' +
+      '<li>Исправлял выявленные баги и поддерживал стабильность серверной части в продакшене.</li></ul>' +
+      '<div class="lq-techs"><span>PHP</span><span>Laravel</span><span>Redis</span><span>MySQL</span><span>REST API</span></div></div>' +
+      '<div class="lq-job"><h4>ООО «Лемборган Техно»</h4><div class="jrole">Fullstack / Web-разработчик · Yii, Laravel, Vue.js</div><div class="jmeta">Минск · октябрь 2022 — февраль 2023</div>' +
+      '<p class="jctx">Разработка и поддержка веб-приложений</p>' +
+      '<ul><li>Разрабатывал, отлаживал и дорабатывал веб-приложения mkrostov.ru и pandorabox.by: реализация серверной логики, клиентской части и интеграций по требованиям заказчика.</li>' +
+      '<li>Развивал backend на Yii и Laravel: проектирование API и бизнес-логики, работа с базой данных, миграции, оптимизация запросов.</li>' +
+      '<li>Разрабатывал интерфейсы на Vue.js: интерактивные компоненты, формы и связка фронтенда с backend через REST API.</li>' +
+      '<li>Дорабатывал существующий функционал по задачам заказчика, исправлял баги и поддерживал стабильную работу проектов в продакшене.</li></ul>' +
+      '<div class="lq-techs"><span>PHP</span><span>Yii</span><span>Laravel</span><span>Vue.js</span><span>JavaScript</span><span>MySQL</span><span>REST API</span></div></div>' +
+      '</div></div>' },
+    edu: { t: 'Образование', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/edu.png" alt="Образование">' +
+      '<div class="lq-hero-t"><h3>Образование</h3><div class="role">Прикладная математика и информатика · Go · AI</div>' +
+      '<div class="lq-facts"><span>Бакалавр</span><span>БФУ им. Канта</span><span>Калининград</span><span>2023</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-sec"><h4>Высшее образование</h4>' +
+      '<div class="lq-job"><h4>Балтийский федеральный университет им. И. Канта</h4><div class="jrole">Бакалавр · Прикладная математика и информатика</div><div class="jmeta">Калининград · 2023</div>' +
+      '<p class="jctx">Институт физико-математических наук и информационных технологий</p></div></div>' +
+      '<div class="lq-sec"><h4>Курсы и повышение квалификации</h4>' +
+      '<div class="lq-job"><h4>Продвинутый Go-разработчик + инфраструктура и продакшн</h4><div class="jrole">Яндекс Практикум · Go-разработчик</div><div class="jmeta">2026</div></div>' +
+      '<div class="lq-job"><h4>Специалист по искусственному интеллекту</h4><div class="jrole">БФУ им. И. Канта</div><div class="jmeta">2023</div></div>' +
+      '<div class="lq-job"><h4>IT-школа SAMSUNG</h4><div class="jrole">Мобильная разработка, Android</div><div class="jmeta">2019</div></div>' +
+      '</div></div></div>' },
+    contact: { t: 'контакты', h: '<div class="lq-about">' +
+      '<div class="lq-hero"><img class="lq-avatar" src="assets/vcard.png" alt="Контакты">' +
+      '<div class="lq-hero-t"><h3>Связаться</h3><div class="role">Открыт к предложениям · удалённо · командировки</div>' +
+      '<div class="lq-facts"><span>Калининград</span><span>Telegram · почта</span></div>' +
+      '</div></div>' +
+      '<div class="lq-bio">' +
+      '<div class="lq-sec"><h4>Прямые контакты</h4><div class="lq-links">' +
+      '<a class="hot" href="https://t.me/xzrist" target="_blank" rel="noopener">Telegram</a>' +
+      '<a href="mailto:vascool66@icloud.com">vascool66@icloud.com</a>' +
+      '</div></div>' +
+      '<div class="lq-sec"><h4>Профили</h4><div class="lq-links">' +
+      '<a href="https://github.com/YNGXZRIST" target="_blank" rel="noopener">GitHub</a>' +
+      '<a href="https://hh.ru/resume/8091e8ecff09eef9150039ed1f69554c743242" target="_blank" rel="noopener">Резюме на hh.ru</a>' +
+      '</div></div>' +
+      '</div></div>' }
+  };
+
+  let z = 100, open = {}, offs = 0;
+
+  let dockItems = {};
+  let PINNED = { about:1, projects:1, stack:1, exp:1, edu:1, contact:1 };
+  let ICONS = { about:'txt', projects:'folder-sys', stack:'gear', exp:'exp', edu:'edu', contact:'vcard',
+                p_profile:'proj-profile', p_keeper:'proj-keeper', p_metrics:'proj-metrics', p_loyalty:'proj-loyalty' };
+
+  function ensureDockItem(key) {
+    if (PINNED[key] || dockItems[key]) return;
+    let d = DATA[key];
+    let it = document.createElement('div');
+    it.className = 'lq-app lq-app-temp';
+    it.setAttribute('data-label', d ? d.t : key);
+    it.innerHTML = '<img src="assets/' + (ICONS[key] || 'txt') + '.png" alt="">';
+    it.addEventListener('click', function () {
+      if (open[key]) { open[key].style.zIndex = ++z; }
+      else { toggleWin(key); }
+    });
+    dock.appendChild(it);
+    dockItems[key] = it;
+  }
+
+  function removeDockItem(key) {
+    let it = dockItems[key];
+    if (!it) return;
+    delete dockItems[key];
+    it.classList.add('leaving');
+    let done = false, kill = function () { if (done) return; done = true; it.remove(); };
+    it.addEventListener('animationend', kill, { once: true });
+    setTimeout(kill, 480);
+  }
+
+  function markIcon(key, on) {
+    let ic = os.querySelector('.lq-ico[data-win="' + key + '"]');
+    if (ic) ic.classList.toggle('on', on);
+    let ap = os.querySelector('.lq-app[data-win="' + key + '"]');
+    if (ap) ap.classList.toggle('running', on);
+    if (dockItems[key]) dockItems[key].classList.toggle('running', on);
+  }
+
+  function dockTargetRect(key) {
+    let el = dockItems[key]
+          || os.querySelector('.lq-app[data-win="' + key + '"]')
+          || os.querySelector('.lq-ico[data-win="' + key + '"]');
+    return el ? el.getBoundingClientRect() : null;
+  }
+
+  function slideDown(w, key) {
+    let wr = w.getBoundingClientRect();
+    let t = dockTargetRect(key);
+    let tx = 0, ty = 70;
+    if (t) {
+      tx = (t.left + t.width / 2) - (wr.left + wr.width / 2);
+      ty = (t.top + t.height / 2) - (wr.top + wr.height / 2);
+    }
+    w.style.animation = 'none';
+    w.style.transformOrigin = '50% 100%';
+    w.style.transition = 'transform .5s cubic-bezier(.4,.66,.2,1), opacity .44s ease, filter .44s ease';
+    requestAnimationFrame(function () {
+      w.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(.06)';
+      w.style.opacity = '0';
+      w.style.filter = 'blur(2px)';
+    });
+    setTimeout(function () { w.remove(); }, 520);
+  }
+
+  function minimizeWin(key) {
+    let w = open[key]; if (!w) return;
+    ensureDockItem(key);
+    delete open[key];
+    markIcon(key, false);
+    slideDown(w, key);
+  }
+
+  function closeWin(key) {
+    let w = open[key]; if (!w) return;
+    delete open[key];
+    markIcon(key, false);
+    slideDown(w, key);
+    removeDockItem(key);
+  }
+
+  function toggleWin(key) {
+    if (open[key]) { closeWin(key); return; }
+    let d = DATA[key]; if (!d) return;
+    let w = document.createElement('div');
+    w.className = 'lq-win';
+    w.dataset.win = key;
+    w.style.left = (172 + offs) + 'px';
+    w.style.top = (60 + offs) + 'px';
+    w.style.zIndex = ++z;
+    offs = (offs + 26) % 110;
+    w.innerHTML =
+      '<div class="lq-bar"><div class="lq-dots"><i class="lq-red"></i><i class="lq-yel"></i><i class="lq-grn"></i></div>' +
+      '<div class="lq-title">' + d.t + '</div></div><div class="lq-body">' + d.h + '</div>';
+    os.appendChild(w);
+    ensureDockItem(key);
+    open[key] = w;
+    markIcon(key, true);
+
+    w.querySelectorAll('[data-win]').forEach(function (el) {
+      el.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        toggleWin(el.getAttribute('data-win'));
+      });
+    });
+
+    w.addEventListener('mousedown', function () { w.style.zIndex = ++z; });
+    w.querySelector('.lq-red').addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeWin(key);
+    });
+    w.querySelector('.lq-yel').addEventListener('click', function (e) {
+      e.stopPropagation();
+      minimizeWin(key);
+    });
+    w.querySelector('.lq-grn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (w.classList.contains('max')) {
+        let ez = 'cubic-bezier(.32,.72,0,1)';
+        w.style.transition = 'left .42s ' + ez + ', top .42s ' + ez + ', right .42s ' + ez + ', bottom .42s ' + ez + ', width .42s ' + ez + ', height .42s ' + ez + ', border-radius .42s ease';
+        setTimeout(function () { w.style.transition = ''; }, 440);
+      }
+      w.classList.toggle('max');
+    });
+
+    let bar = w.querySelector('.lq-bar'), drag = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    bar.addEventListener('mousedown', function (e) {
+      if (w.classList.contains('max')) return;
+      drag = true; sx = e.clientX; sy = e.clientY;
+      ox = parseInt(w.style.left, 10); oy = parseInt(w.style.top, 10);
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function (e) {
+      if (!drag) return;
+      w.style.left = (ox + e.clientX - sx) + 'px';
+      w.style.top = Math.max(30, oy + e.clientY - sy) + 'px';
+    });
+    document.addEventListener('mouseup', function () { drag = false; });
+  }
+
+  os.querySelectorAll('[data-win]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      toggleWin(el.getAttribute('data-win'));
+    });
+  });
+
+  (function () {
+    let layer = os.querySelector('.lq-icons');
+    if (!layer) return;
+    let icons = [].slice.call(layer.querySelectorAll('.lq-ico'));
+    let osRect = os.getBoundingClientRect();
+    let pos = icons.map(function (el) {
+      let r = el.getBoundingClientRect();
+      return { left: Math.round(r.left - osRect.left), top: Math.round(r.top - osRect.top) };
+    });
+    icons.forEach(function (el, i) {
+      el.style.position = 'absolute';
+      el.style.margin = '0';
+      el.style.left = pos[i].left + 'px';
+      el.style.top = pos[i].top + 'px';
+    });
+    layer.style.display = 'block';
+    layer.style.top = '0'; layer.style.left = '0';
+    layer.style.right = '0'; layer.style.bottom = '0';
+    layer.style.pointerEvents = 'none';
+    icons.forEach(function (el) { el.style.pointerEvents = 'auto'; });
+
+    let cur = null, sx = 0, sy = 0, ox = 0, oy = 0, moved = false, iz = 1;
+    icons.forEach(function (el) {
+      el.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return;
+        cur = el; moved = false;
+        sx = e.clientX; sy = e.clientY;
+        ox = parseFloat(el.style.left) || 0;
+        oy = parseFloat(el.style.top) || 0;
+        el.style.zIndex = ++iz;
+        e.preventDefault();
+      });
+      el.addEventListener('click', function (e) {
+        if (el._moved) { el._moved = false; e.preventDefault(); e.stopImmediatePropagation(); }
+      }, true);
+    });
+    document.addEventListener('mousemove', function (e) {
+      if (!cur) return;
+      let mx = e.clientX - sx, my = e.clientY - sy;
+      if (!moved && Math.abs(mx) + Math.abs(my) < 5) return;
+      moved = true; cur._moved = true;
+      cur.classList.add('dragging');
+      cur.style.left = (ox + mx) + 'px';
+      cur.style.top = Math.max(34, oy + my) + 'px';
+    });
+    document.addEventListener('mouseup', function () {
+      if (cur) cur.classList.remove('dragging');
+      cur = null;
+    });
+  })();
+
+  let clk = document.getElementById('lqClock');
+  function tick() {
+    if (!clk) return;
+    const d = new Date();
+    const wd = d.toLocaleDateString('ru-RU', { weekday: 'short' });
+    const dm = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+    const tm = d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    clk.textContent = wd.charAt(0).toUpperCase() + wd.slice(1) + ', ' + dm + ' ' + tm;
+  }
+  tick();
+  setInterval(tick, 15000);
+
+  toggleWin('about');
+})();
+</script>
+</body>
+</html>
