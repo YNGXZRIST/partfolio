@@ -1,0 +1,18 @@
+/* Liquid Glass: базовое стекло без url()-фильтров — иначе браузер может отбросить blur целиком. */
+.glass-bar {
+  background: var(--glass-bar);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: inset 0 .5px 0 var(--glass-border), 0 0 0 .5px var(--hairline);
+}
+.glass-window {
+  background: var(--glass-window);
+  backdrop-filter: blur(40px) saturate(170%);
+  -webkit-backdrop-filter: blur(40px) saturate(170%);
+}
+.glass-menu {
+  background: var(--glass-menu);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: var(--shadow-menu), inset 0 .5px 0 var(--glass-border);
+}
