@@ -28,5 +28,5 @@ export const searchIndex: SearchItem[] = [
     id: `tech:${it.name}`, title: it.name, subtitle: c.title, icon: 'gear.png',
     keywords: [c.title, ...(synonyms[it.name] ?? [])], target: 'settings' as const, group: 'Технологии',
   }))),
-  ...jobs.map(j => ({ id: `job:${j.company}`, title: j.company, subtitle: j.role, icon: 'exp.png', keywords: j.tags, target: 'calendar' as const, group: 'Опыт' })),
+  ...jobs.map(j => ({ id: `job:${j.company}`, title: j.company, subtitle: j.role, icon: 'calendar.svg', keywords: j.tags, target: 'calendar' as const, group: 'Опыт' })),
 ]

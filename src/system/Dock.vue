@@ -8,6 +8,7 @@ import { useWindows } from '@/stores/windows'
 import { asset } from '@/lib/asset'
 import { dockScale } from '@/lib/magnify'
 import { prefersReducedMotion } from '@/lib/motion'
+import CalendarIcon from './CalendarIcon.vue'
 
 const BASE = 54
 const MAX = 1.55
@@ -72,7 +73,7 @@ const slotStyle = (i: number) => ({ transform: `translateX(${layout.value.offs[i
         <div v-if="it.sep" :ref="el => setRef(el, i)" class="dock-sep" :style="slotStyle(i)" />
         <button v-else-if="it.app" :ref="el => setRef(el, i)" class="dock-item" :data-dock-id="it.key" :aria-label="it.label"
                 :style="slotStyle(i)" @click="wm.activate(it.app, ($event.currentTarget as HTMLElement).getBoundingClientRect())">
-          <span class="bob"><img :src="it.icon" alt=""></span>
+          <span class="bob"><CalendarIcon v-if="it.key === 'calendar'" class="img" /><img v-else :src="it.icon" alt=""></span>
           <span class="dock-tip lg lg-dense">{{ it.label }}</span>
           <span v-if="running.has(it.key)" class="dock-dot" />
         </button>
@@ -98,7 +99,7 @@ const slotStyle = (i: number) => ({ transform: `translateX(${layout.value.offs[i
   display: block; color: inherit; transition: transform .18s ease-out;
 }
 .bob { position: absolute; inset: 0; display: block; }
-.bob img {
+.bob img, .bob .img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none;
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .22));
   transform: scale(var(--k, 1)); transform-origin: 50% 100%; transition: transform .18s ease-out;
@@ -110,9 +111,9 @@ const slotStyle = (i: number) => ({ transform: `translateX(${layout.value.offs[i
 }
 .dock-item:hover .dock-tip { opacity: 1; }
 /* Пока курсор над Dock — без CSS-переходов: иконки идут за курсором кадр в кадр, без «догоняния». */
-.dock.hot .dock-item, .dock.hot .bob img, .dock.hot .dock-sep, .dock.hot .dock-bg { transition: none; }
-.dock-item, .bob img { will-change: transform; }
-.dock-item:active .bob img { filter: brightness(.6) drop-shadow(0 2px 3px rgba(0, 0, 0, .22)); }
+.dock.hot .dock-item, .dock.hot .bob img, .dock.hot .bob .img, .dock.hot .dock-sep, .dock.hot .dock-bg { transition: none; }
+.dock-item, .bob img, .bob .img { will-change: transform; }
+.dock-item:active .bob img, .dock-item:active .bob .img { filter: brightness(.6) drop-shadow(0 2px 3px rgba(0, 0, 0, .22)); }
 .dock-dot { position: absolute; bottom: -6px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--text); opacity: .75; }
 .dock-sep { flex: none; align-self: stretch; width: 1px; margin: 4px 2px; background: rgba(255, 255, 255, .45); transition: transform .12s ease-out; }
 :root[data-theme="dark"] .dock-sep { background: rgba(255, 255, 255, .22); }
