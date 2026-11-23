@@ -23,11 +23,8 @@ it('префикс заголовка выше подстроки', () => {
   const r = search('gophk', searchIndex)
   expect(r[0].target).toBe('project:gophkeeper')
 })
-it('Kubernetes и Grafana ищутся и по-русски', () => {
-  expect(search('кубернетис', searchIndex).map(r => r.title)).toContain('Kubernetes')
-  expect(search('графана', searchIndex).map(r => r.title)).toContain('Grafana')
-})
-it('Prometheus и Helm ищутся и по-русски', () => {
-  expect(search('прометеус', searchIndex).map(r => r.title)).toContain('Prometheus')
-  expect(search('хелм', searchIndex).map(r => r.title)).toContain('Helm')
+it('Kubernetes, Helm, Grafana, Prometheus ищутся по оригинальным названиям', () => {
+  expect(search('k8s', searchIndex).map(r => r.title)).toContain('Kubernetes')
+  ;['helm', 'grafana', 'prometheus', 'kubernetes'].forEach(q => expect(search(q, searchIndex).length).toBeGreaterThan(0))
+  expect(search('графана', searchIndex)).toEqual([])
 })
