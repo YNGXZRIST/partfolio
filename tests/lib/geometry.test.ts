@@ -12,7 +12,7 @@ it('окно за правым краем оставляет 120px', () => {
 })
 it('нельзя залезть под меню-бар и уйти за низ', () => {
   expect(clampRect({ x: 100, y: 0, w: 600, h: 400 }, vp).y).toBe(28)
-  expect(clampRect({ x: 100, y: 2000, w: 600, h: 400 }, vp).y).toBe(900 - 44)
+  expect(clampRect({ x: 100, y: 2000, w: 600, h: 400 }, vp).y).toBe(900 - 144)
 })
 it('минимальный размер 420×300', () => {
   expect(clampRect({ x: 100, y: 100, w: 100, h: 50 }, vp)).toMatchObject({ w: 420, h: 300 })
@@ -22,6 +22,11 @@ it('большое окно при маленьком вьюпорте ужим�
   expect(r.w).toBeLessThanOrEqual(800)
   expect(r.h).toBeLessThanOrEqual(600 - 28)
   expect(r.y).toBeGreaterThanOrEqual(28)
-  expect(r.y).toBeLessThanOrEqual(600 - 44)
+  expect(r.y).toBeLessThanOrEqual(600 - 144)
   expect(r.x).toBeLessThanOrEqual(800 - 120)
+})
+
+it('заголовок окна не может уйти под Dock', () => {
+  const r = clampRect({ x: 500, y: 880, w: 560, h: 480 }, vp)
+  expect(r.y + 52).toBeLessThanOrEqual(900 - 92)
 })

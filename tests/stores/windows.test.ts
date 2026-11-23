@@ -28,6 +28,8 @@ it('activate на открытом только поднимает наверх'
 })
 
 it('повторный open не создаёт второе окно', () => {
+  Object.defineProperty(window, 'innerWidth', { value: 1440, configurable: true })
+  Object.defineProperty(window, 'innerHeight', { value: 900, configurable: true })
   const w = useWindows()
   w.open('project:gophprofile'); w.open('project:gophprofile')
   expect(w.windows.value.size).toBe(1)
@@ -76,4 +78,14 @@ it('activate запоминает точку раскрытия только д�
   expect(w.takeOrigin('about')).toBeUndefined()
   w.activate('about', r)
   expect(w.takeOrigin('about')).toBeUndefined()
+})
+
+it('на маленьком экране новое окно не залезает под Dock', () => {
+  Object.defineProperty(window, 'innerWidth', { value: 1280, configurable: true })
+  Object.defineProperty(window, 'innerHeight', { value: 720, configurable: true })
+  const w = useWindows()
+  w.open('calendar')
+  const r = w.windows.value.get('calendar')!.rect
+  expect(r.y + r.h).toBeLessThanOrEqual(720 - 92)
+  expect(r.x + r.w).toBeLessThanOrEqual(1280)
 })

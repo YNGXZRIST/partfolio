@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import type { Rect } from '@/lib/geometry'
+import { clampRect, DOCK_RESERVE, type Rect } from '@/lib/geometry'
 import type { AppId, WindowId } from '@/content/types'
 import { appById } from '@/content/apps'
 
@@ -7,7 +7,6 @@ export interface WinState { id: WindowId; status: 'open' | 'minimized'; rect: Re
 
 const PROJECT_SIZE = { w: 760, h: 620 }
 const MENUBAR_H = 28
-const DOCK_RESERVE = 92
 
 const windows = ref(new Map<WindowId, WinState>())
 /** Откуда открывать окно (прямоугольник иконки) — для анимации раскрытия. */
@@ -36,8 +35,13 @@ function open(id: WindowId) {
   const n = windows.value.size
   const { w, h } = sizeFor(id)
   const vw = typeof window === 'undefined' ? 1440 : window.innerWidth
-  const x = Math.max(16, Math.round((vw - w) / 2)) + 28 * n
-  windows.value.set(id, { id, status: 'open', rect: { x, y: 60 + 28 * n, w, h }, zoomed: false, prevRect: null })
+  const vh = typeof window === 'undefined' ? 900 : window.innerHeight
+  const y = 60 + 28 * n
+  const fitW = Math.min(w, vw - 32)
+  const fitH = Math.min(h, vh - y - DOCK_RESERVE - 8)
+  const x = Math.max(16, Math.round((vw - fitW) / 2)) + 28 * n
+  const rect = clampRect({ x, y, w: fitW, h: fitH }, { w: vw, h: vh })
+  windows.value.set(id, { id, status: 'open', rect, zoomed: false, prevRect: null })
   raise(id)
 }
 

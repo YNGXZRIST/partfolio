@@ -79,7 +79,7 @@ export function animateMinimize(el: HTMLElement, to: DOMRect): Promise<void> {
 }
 
 export function animateRestore(el: HTMLElement, from: DOMRect): Promise<void> {
-  if (prefersReducedMotion()) { gsap.set(el, { clearProps: 'all' }); return done() }
+  if (prefersReducedMotion()) { clearAnim(el); return done() }
   return runGenie(el, from, 1, 0, 0.5)
 }
 
