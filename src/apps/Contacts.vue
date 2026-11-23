@@ -42,10 +42,13 @@ const target = (href: string) => (href.startsWith('mailto:') ? undefined : '_bla
 h2 { margin: 12px 0 2px; font-size: 22px; font-weight: 700; }
 .sub { font-size: 13px; color: var(--text-2); }
 .actions { display: flex; gap: 22px; margin-top: 16px; }
-.act { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; color: var(--accent); text-decoration: none; }
+.act { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--text-2); text-decoration: none; }
+.act:hover { color: var(--text); }
+.act:hover .circle { background: var(--fill); box-shadow: inset 0 0 0 1px var(--accent); }
 .circle { width: 44px; height: 44px; border-radius: 50%; background: var(--fill-2); display: grid; place-items: center; box-shadow: inset 0 0 0 .5px var(--hairline); }
 .circle img { width: 26px; height: 26px; object-fit: contain; }
 .link { text-decoration: none; color: inherit; }
 .lbl { color: var(--text-2); width: 90px; }
-.val { color: var(--accent); }
+.val { color: var(--text); }
+.link:hover .val { text-decoration: underline; text-underline-offset: 2px; }
 </style>
