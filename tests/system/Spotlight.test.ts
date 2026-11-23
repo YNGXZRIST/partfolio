@@ -40,3 +40,21 @@ it('Esc и клик мимо закрывают', async () => {
   expect(c.emitted('update:open')?.filter(x => x[0] === false).length).toBe(2)
   c.unmount()
 })
+
+it('⌘K, Ctrl+K и «/» открывают поиск; автоповтор игнорируется', () => {
+  const c = mk()
+  const k = new KeyboardEvent('keydown', { key: 'k', code: 'KeyK', metaKey: true, cancelable: true })
+  document.dispatchEvent(k)
+  expect(k.defaultPrevented).toBe(true)
+  expect(c.emitted('update:open')?.at(-1)).toEqual([true])
+  const ck = new KeyboardEvent('keydown', { key: 'k', code: 'KeyK', ctrlKey: true, cancelable: true })
+  document.dispatchEvent(ck)
+  expect(ck.defaultPrevented).toBe(true)
+  const slash = new KeyboardEvent('keydown', { key: '/', code: 'Slash', cancelable: true })
+  document.dispatchEvent(slash)
+  expect(slash.defaultPrevented).toBe(true)
+  const n = c.emitted('update:open')!.length
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', code: 'KeyK', metaKey: true, repeat: true, cancelable: true }))
+  expect(c.emitted('update:open')!.length).toBe(n)
+  c.unmount()
+})

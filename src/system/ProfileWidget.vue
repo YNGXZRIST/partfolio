@@ -1,10 +1,26 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { gsap } from 'gsap'
 import { profile } from '@/content/profile'
 import { asset } from '@/lib/asset'
+import { useWindows } from '@/stores/windows'
+import { prefersReducedMotion } from '@/lib/motion'
+
+const wm = useWindows()
+const el = ref<HTMLElement | null>(null)
+
+// Появляется как баннер уведомления macOS: выезжает справа с лёгкой пружиной.
+onMounted(() => {
+  if (!el.value || prefersReducedMotion()) return
+  gsap.fromTo(el.value, { x: 420, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: 'back.out(1.1)', delay: 1, clearProps: 'transform,opacity' })
+})
 </script>
 
 <template>
-  <div class="widget lg" data-test="widget">
+  <div ref="el" class="widget lg" data-test="widget" role="button" tabindex="0" aria-label="Открыть «Обо мне»"
+       @click="wm.activate('about')" @keydown.enter="wm.activate('about')">
+    <div class="n-head"><span class="n-app"><img :src="asset('about.svg')" alt="">ПОРТФОЛИО</span><span class="n-time">сейчас</span></div>
+    <div class="n-body">
     <img class="ava" :src="asset(profile.avatar)" alt="">
     <div class="lines">
       <div data-line class="name">{{ profile.name }}</div>
@@ -13,16 +29,23 @@ import { asset } from '@/lib/asset'
       <div data-line class="sub">{{ profile.experience }} · {{ profile.stackLine }}</div>
       <div data-line class="status"><span class="dot">●</span> {{ profile.status }}</div>
     </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .widget {
-  position: absolute; top: 48px; left: 24px; z-index: 2;
+  position: absolute; top: 40px; right: 14px; z-index: 2;
   width: 340px; padding: 16px; border-radius: 22px;
-  display: flex; gap: 14px; align-items: flex-start;
+  display: flex; flex-direction: column; gap: 8px; cursor: default;
   color: #1d1d1f; user-select: none;
 }
+.n-head { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; letter-spacing: .03em; opacity: .7; }
+.n-app { display: flex; align-items: center; gap: 6px; }
+.n-app img { width: 16px; height: 16px; border-radius: 4px; }
+.n-time { font-weight: 500; letter-spacing: 0; }
+.n-body { display: flex; gap: 14px; align-items: flex-start; }
+.widget:active { transform: scale(.98); }
 .ava { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 2px rgba(255,255,255,.5); }
 .lines { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .name { font-size: 17px; font-weight: 700; letter-spacing: -.01em; }

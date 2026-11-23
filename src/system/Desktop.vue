@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type Component } from 'vue'
+import { onMounted, ref, type Component } from 'vue'
 import Wallpaper from './Wallpaper.vue'
 import Welcome from './Welcome.vue'
 import ProfileWidget from './ProfileWidget.vue'
@@ -22,6 +22,9 @@ import { asset } from '@/lib/asset'
 const wm = useWindows()
 const selected = ref<string | null>(null)
 const spotlightOpen = ref(false)
+
+// При заходе сразу открыто «Обо мне» — HR видит главное без кликов.
+onMounted(() => { if (!wm.windows.value.size) wm.activate('about') })
 
 const appComponents: Record<AppId, Component> = { about: AboutDeveloper, contacts: Contacts, finder: Finder, settings: Settings, calendar: CalendarApp }
 
@@ -59,5 +62,5 @@ function componentFor(id: WindowId): Component {
 
 <style scoped>
 .desktop { position: fixed; inset: 0; overflow: hidden; }
-.icons { position: absolute; top: 44px; right: 16px; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.icons { position: absolute; top: 200px; right: 16px; z-index: 2; display: flex; flex-direction: column; gap: 14px; align-items: center; }
 </style>

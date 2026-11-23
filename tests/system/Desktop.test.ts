@@ -32,3 +32,19 @@ it('на рабочем столе папки проектов, двойной �
   await icons[0].trigger('dblclick')
   expect(useWindows().windows.value.has('project:gophprofile')).toBe(true)
 })
+
+it('при загрузке открывается «Обо мне»', () => {
+  mount(Desktop)
+  const w = useWindows()
+  expect(w.activeId.value).toBe('about')
+})
+
+it('пуш — уведомление: шапка «Портфолио», клик открывает «Обо мне»', async () => {
+  const c = mount(Desktop)
+  const w = useWindows()
+  w.close('about')
+  const n = c.find('[data-test="widget"]')
+  expect(n.find('.n-app').text()).toContain('ПОРТФОЛИО')
+  await n.trigger('click')
+  expect(w.windows.value.has('about')).toBe(true)
+})

@@ -21,7 +21,7 @@ const { theme, setTheme } = useTheme()
 type Menu = { id: string; label: string; bold?: boolean; items: MenuItem[] }
 const menus = computed<Menu[]>(() => [
   { id: 'apple', label: '', items: [
-    { label: 'Об этом разработчике', action: () => wm.activate('about') },
+    { label: 'Обо мне', action: () => wm.activate('about') },
     { separator: true, label: '' },
     { label: theme.value === 'dark' ? 'Светлое оформление' : 'Тёмное оформление', action: () => setTheme(theme.value === 'dark' ? 'light' : 'dark') },
     { separator: true, label: '' },
@@ -30,7 +30,7 @@ const menus = computed<Menu[]>(() => [
     { label: 'GitHub', href: 'https://github.com/YNGXZRIST' },
   ] },
   { id: 'name', label: profile.name, bold: true, items: [
-    { label: 'Об этом разработчике', action: () => wm.activate('about') },
+    { label: 'Обо мне', action: () => wm.activate('about') },
     { label: 'Все проекты', action: () => wm.activate('finder') },
     { label: 'Связаться', action: () => wm.activate('contacts') },
   ] },

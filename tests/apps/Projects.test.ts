@@ -9,7 +9,7 @@ beforeEach(() => { resetWindows(); useWindows().open('finder') })
 
 it('Finder: сайдбар разделов и 4 папки', async () => {
   const c = mount(Finder, { props: { id: 'finder' } })
-  expect(c.findAll('[data-test="side"]').map(s => s.text())).toEqual(['Проекты', 'Об этом разработчике', 'Стек', 'Опыт', 'Контакты'])
+  expect(c.findAll('[data-test="side"]').map(s => s.text())).toEqual(['Проекты', 'Обо мне', 'Стек', 'Опыт', 'Контакты'])
   await c.findAll('[data-test="side"]')[2].trigger('click')
   expect(useWindows().windows.value.has('settings')).toBe(true)
   const folders = c.findAll('[data-test="folder"]')

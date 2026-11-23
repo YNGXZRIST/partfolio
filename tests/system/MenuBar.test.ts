@@ -23,7 +23,7 @@ it('«Проекты» показывает 4 проекта и открывае
   c.unmount()
 })
 
-it('«Опыт», «Стек», «Контакты», «Об этом разработчике»', async () => {
+it('«Опыт», «Стек», «Контакты», «Обо мне»', async () => {
   const c = mk()
   await c.find('[data-menu="exp"]').trigger('click')
   expect(c.findAll('[data-test="menu-item"]').map(i => i.text())).toEqual(['R-брокер', 'TonyLead Company', 'ООО «Лемборган Техно»'])
@@ -40,7 +40,7 @@ it('«Опыт», «Стек», «Контакты», «Об этом разра
   expect(c.html()).not.toContain('hh.ru')
 
   await c.find('[data-menu="apple"]').trigger('click')
-  const about = c.findAll('[data-test="menu-item"]').find(i => i.text() === 'Об этом разработчике')!
+  const about = c.findAll('[data-test="menu-item"]').find(i => i.text() === 'Обо мне')!
   await about.trigger('click')
   expect(useWindows().windows.value.has('about')).toBe(true)
   c.unmount()

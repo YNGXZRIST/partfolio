@@ -19,8 +19,19 @@ watch(() => props.open, async o => { if (o) { q.value = ''; await nextTick(); in
 function close() { emit('update:open', false) }
 function choose(r: SearchItem | undefined) { if (!r) return; wm.activate(r.target); close() }
 
+const typing = (t: EventTarget | null) => t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))
+
+/**
+ * ⌘+Пробел на macOS забирает система — до страницы не доходит. Поэтому, как принято в вебе:
+ * ⌘K / Ctrl+K и «/» (если не печатаем в поле); ⌘/Ctrl+Пробел оставлен для Windows/Linux.
+ */
 function onGlobalKey(e: KeyboardEvent) {
-  if ((e.metaKey || e.ctrlKey) && (e.code === 'Space' || e.key === ' ')) { e.preventDefault(); emit('update:open', !props.open); return }
+  if (e.repeat) return
+  const mod = e.metaKey || e.ctrlKey
+  if (mod && (e.code === 'Space' || e.key === ' ' || e.code === 'KeyK' || e.key.toLowerCase() === 'k')) {
+    e.preventDefault(); emit('update:open', !props.open); return
+  }
+  if (e.key === '/' && !mod && !props.open && !typing(e.target)) { e.preventDefault(); emit('update:open', true); return }
   if (e.key === 'Escape' && props.open) close()
 }
 function onInputKey(e: KeyboardEvent) {
@@ -37,7 +48,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onGlobalKey))
     <div class="sp lg lg-dense" role="dialog" aria-label="Spotlight">
       <div class="sp-field">
         <svg viewBox="0 0 15 15" class="sp-ico"><circle cx="6.2" cy="6.2" r="4.9" /><path d="M9.9 9.9l3.6 3.6" /></svg>
-        <input ref="input" v-model="q" placeholder="Поиск: Go, RabbitMQ, проекты, опыт…" spellcheck="false" @keydown="onInputKey">
+        <input ref="input" v-model="q" placeholder="Поиск: Go, RabbitMQ, проекты, опыт…  (⌘K)" spellcheck="false" @keydown="onInputKey">
       </div>
       <ul v-if="results.length" class="sp-list">
         <li v-for="(r, i) in results" :key="r.id" class="sp-item" :class="{ on: i === sel }" data-test="result" @mouseenter="sel = i" @click="choose(r)">

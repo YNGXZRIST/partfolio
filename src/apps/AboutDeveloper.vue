@@ -7,7 +7,7 @@ defineProps<{ id: WindowId }>()
 </script>
 
 <template>
-  <AppWindow :id="id" title="Об этом разработчике">
+  <AppWindow :id="id" title="Обо мне">
     <div class="mac-page about">
       <div class="hero">
         <img class="ava" :src="asset(profile.avatar)" :alt="profile.name">
