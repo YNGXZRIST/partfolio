@@ -48,3 +48,20 @@ it('пуш — уведомление: шапка «Портфолио», кли
   await new Promise(r => setTimeout(r, 0))
   expect(c.find('[data-test="widget"]').exists()).toBe(false)
 })
+
+it('иконку можно перетащить, и при этом проект не открывается', async () => {
+  localStorage.clear()
+  const c = mount(Desktop, { attachTo: document.body })
+  const icon = c.findAll('[data-test="desktop-icon"]')[0]
+  const el = icon.element as HTMLElement
+  const before = { left: el.style.left, top: el.style.top }
+  await icon.trigger('pointerdown', { button: 0, clientX: 100, clientY: 100, pointerId: 1 })
+  window.dispatchEvent(new PointerEvent('pointermove', { clientX: 40, clientY: 160, pointerId: 1 }))
+  window.dispatchEvent(new PointerEvent('pointerup', { clientX: 40, clientY: 160, pointerId: 1 }))
+  await c.vm.$nextTick()
+  expect(parseFloat(el.style.left)).toBe(parseFloat(before.left) - 60)
+  expect(parseFloat(el.style.top)).toBe(parseFloat(before.top) + 60)
+  expect(useWindows().windows.value.size).toBe(0)
+  expect(JSON.parse(localStorage.getItem('desktop-icons')!).gophprofile).toBeTruthy()
+  c.unmount()
+})

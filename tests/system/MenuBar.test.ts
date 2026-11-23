@@ -79,6 +79,7 @@ it('Пункт управления переключает тему', async () =
   localStorage.clear(); initTheme()
   const c = mk()
   await c.find('[data-test="cc-btn"]').trigger('click')
+  expect(c.findAll('[data-theme-option]').map(b => b.attributes('data-theme-option'))).toEqual(['system', 'light', 'dark'])
   await c.find('[data-theme-option="light"]').trigger('click')
   expect(useTheme().theme.value).toBe('light')
   expect(document.documentElement.dataset.theme).toBe('light')

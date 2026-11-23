@@ -16,14 +16,14 @@ const wm = useWindows()
 const root = ref<HTMLElement | null>(null)
 const open = ref<string | null>(null)
 const now = ref(new Date())
-const { theme, setTheme } = useTheme()
+const { theme, mode, setMode } = useTheme()
 
 type Menu = { id: string; label: string; bold?: boolean; items: MenuItem[] }
 const menus = computed<Menu[]>(() => [
   { id: 'apple', label: '', items: [
     { label: 'Обо мне', action: () => wm.activate('about') },
     { separator: true, label: '' },
-    { label: theme.value === 'dark' ? 'Светлое оформление' : 'Тёмное оформление', action: () => setTheme(theme.value === 'dark' ? 'light' : 'dark') },
+    { label: theme.value === 'dark' ? 'Светлое оформление' : 'Тёмное оформление', action: () => setMode(theme.value === 'dark' ? 'light' : 'dark') },
     { separator: true, label: '' },
     { label: 'Системные настройки…', hint: 'стек', action: () => wm.activate('settings') },
     { separator: true, label: '' },
@@ -90,11 +90,14 @@ onBeforeUnmount(() => {
           <div class="cc-tile">
             <div class="cc-title">Оформление</div>
             <div class="seg">
-              <button :class="{ on: theme === 'dark' }" data-theme-option="dark" @click="setTheme('dark')">
-                <svg viewBox="0 0 16 16"><path d="M13 9.5A5.5 5.5 0 0 1 6.5 3a5.5 5.5 0 1 0 6.5 6.5z" /></svg>Тёмное
+              <button :class="{ on: mode === 'system' }" data-theme-option="system" @click="setMode('system')">
+                <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" /><path d="M8 2.5v11a5.5 5.5 0 0 0 0-11z" class="half" /></svg>Авто
               </button>
-              <button :class="{ on: theme === 'light' }" data-theme-option="light" @click="setTheme('light')">
+              <button :class="{ on: mode === 'light' }" data-theme-option="light" @click="setMode('light')">
                 <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" /><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M3 13l1.4-1.4M11.6 4.4L13 3" /></svg>Светлое
+              </button>
+              <button :class="{ on: mode === 'dark' }" data-theme-option="dark" @click="setMode('dark')">
+                <svg viewBox="0 0 16 16" class="moon"><path d="M13 9.5A5.5 5.5 0 0 1 6.5 3a5.5 5.5 0 1 0 6.5 6.5z" /></svg>Тёмное
               </button>
             </div>
           </div>
@@ -129,12 +132,13 @@ onBeforeUnmount(() => {
 .ico.bat { width: 26px; height: 12px; }
 .ico-btn { padding: 0 4px; }
 .clock { padding: 0 4px; font-variant-numeric: tabular-nums; }
-.cc { position: absolute; top: calc(100% + 4px); right: -40px; width: 300px; padding: 10px; border-radius: 22px; z-index: 9500; color: var(--text); text-shadow: none; }
+.cc { position: absolute; top: calc(100% + 4px); right: -40px; width: 330px; padding: 10px; border-radius: 22px; z-index: 9500; color: var(--text); text-shadow: none; }
 .cc-tile { padding: 12px; border-radius: 16px; background: var(--fill); box-shadow: inset 0 0 0 .5px var(--hairline); }
 .cc-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
-.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
 .seg button { display: flex; align-items: center; justify-content: center; gap: 6px; height: 34px; border: 0; border-radius: 10px; background: var(--fill-2); color: var(--text); font-size: 13px; cursor: default; }
 .seg button.on { background: var(--accent); color: #fff; }
 .seg svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; }
-.seg button:first-child svg { fill: currentColor; stroke: none; }
+.seg svg.moon { fill: currentColor; stroke: none; }
+.seg svg .half { fill: currentColor; stroke: none; }
 </style>
