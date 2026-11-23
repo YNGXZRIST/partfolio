@@ -1,0 +1,213 @@
+- generic [ref=f23e2]:
+  - img "welcome":
+    - img [aria-hidden]:
+      - generic: welcome
+    - img [aria-hidden]:
+      - generic: welcome
+      - generic: welcome
+      - generic: welcome
+  - generic [ref=f23e12]:
+    - generic [ref=f23e13]: Василий Кулагин
+    - generic [ref=f23e14]: Backend-разработчик · Go
+    - generic [ref=f23e15]: highload · распределённые системы · AI
+    - generic [ref=f23e16]: 5+ лет · Go · PHP · Vue
+    - generic [ref=f23e17]: ● Открыт к предложениям
+  - generic [ref=f23e18]:
+    - generic [ref=f23e19]: GophProfile
+    - generic [ref=f23e22]: GophKeeper
+    - generic [ref=f23e25]: sys-metrics
+    - generic [ref=f23e28]: gophermart-loyalty
+  - dialog "GophKeeper" [ref=f23e85]:
+    - generic [ref=f23e86]:
+      - banner [ref=f23e87]:
+        - generic [ref=f23e88]: GophKeeper
+      - generic [ref=f23e90]:
+        - generic [ref=f23e92]:
+          - heading "GophKeeper" [level=2] [ref=f23e93]
+          - paragraph [ref=f23e94]: "Менеджер паролей и секретов: хранит пароли, заметки, файлы и банковские карты и синхронизирует их между устройствами."
+          - generic [ref=f23e95]:
+            - link "Открыть на GitHub" [ref=f23e96]:
+              - /url: https://github.com/YNGXZRIST/gophkeeper
+            - generic [ref=f23e97]:
+              - generic [ref=f23e98]: Go
+              - generic [ref=f23e99]: gRPC
+              - generic [ref=f23e100]: TLS
+              - generic [ref=f23e101]: PostgreSQL
+              - generic [ref=f23e102]: SQLite
+              - generic [ref=f23e103]: bubbletea
+              - generic [ref=f23e104]: Docker
+        - generic [ref=f23e105]:
+          - generic [ref=f23e106]:
+            - generic [ref=f23e107]: Язык
+            - generic [ref=f23e108]: Go 1.26
+          - generic [ref=f23e109]:
+            - generic [ref=f23e110]: Тип
+            - generic [ref=f23e111]: Клиент-сервер
+          - generic [ref=f23e112]:
+            - generic [ref=f23e113]: Хранилище
+            - generic [ref=f23e114]: PostgreSQL + SQLite
+          - generic [ref=f23e115]:
+            - generic [ref=f23e116]: Транспорт
+            - generic [ref=f23e117]: gRPC + TLS
+        - generic [ref=f23e118]:
+          - heading "Что умеет" [level=3] [ref=f23e119]
+          - generic [ref=f23e120]:
+            - generic [ref=f23e121]: "Четыре типа данных: логины и пароли, текст, файлы, банковские карты"
+            - generic [ref=f23e125]: Приложение работает в терминале на Windows, Linux и macOS
+            - generic [ref=f23e129]: Данные синхронизируются между всеми устройствами владельца
+            - generic [ref=f23e133]: Весь обмен зашифрован — без TLS сервер не принимает подключения
+        - generic [ref=f23e137]:
+          - heading "Как устроено" [level=3] [ref=f23e138]
+          - generic [ref=f23e139]:
+            - img "Схема архитектуры" [ref=f23e141]:
+              - generic [ref=f23e142]: gRPC + TLS
+              - generic [ref=f23e144]:
+                - generic [ref=f23e146]: Клиент (TUI)
+                - generic [ref=f23e147]: bubbletea · SQLite-кэш
+              - generic [ref=f23e148]:
+                - generic [ref=f23e150]: Сервер
+                - generic [ref=f23e151]: JWT access + refresh
+              - generic [ref=f23e152]:
+                - generic [ref=f23e154]: PostgreSQL
+                - generic [ref=f23e155]: секреты
+            - paragraph [ref=f23e156]: "Клиент — интерактивный TUI на bubbletea, держит локальный кэш в SQLite и синхронизирует его с сервером. TLS обязателен с обеих сторон: публичный сертификат вшит в клиент через go:embed, приватный ключ остаётся только на сервере (генерируется утилитой cmd/certgen)."
+        - generic [ref=f23e157]:
+          - heading "Технические детали" [level=3] [ref=f23e158]
+          - generic [ref=f23e159]:
+            - paragraph [ref=f23e160]: Хранит логины/пароли, произвольный текст, бинарные файлы и банковские карты — к каждой записи можно добавить метаинформацию (сайт, банк, заметку). Клиент работает в терминале под Windows, Linux и macOS; сервер хранит данные и синхронизирует их между всеми устройствами владельца. Весь обмен идёт по gRPC поверх обязательного TLS.
+            - button "ещё" [ref=f23e161]
+    - generic [ref=f23e162]:
+      - button "Закрыть" [ref=f23e163]
+      - button "Свернуть" [ref=f23e166]
+      - button "Развернуть" [ref=f23e168]
+  - dialog "Языки" [ref=f23e179]:
+    - complementary [ref=f23e180]:
+      - generic [ref=f23e182]:
+        - generic [ref=f23e183]: Поиск
+        - generic [ref=f23e188]:
+          - generic [ref=f23e189]: Василий Кулагин
+          - generic [ref=f23e190]: Технический стек
+        - button "Языки" [ref=f23e191]
+        - button "API и транспорт" [ref=f23e195]
+        - button "Хранилища" [ref=f23e199]
+        - button "Очереди и надёжность" [ref=f23e203]
+        - button "Инфраструктура" [ref=f23e207]
+        - button "AI" [ref=f23e211]
+        - button "Фронтенд" [ref=f23e215]
+    - generic [ref=f23e219]:
+      - banner [ref=f23e220]:
+        - generic [ref=f23e221]: Языки
+      - generic [ref=f23e223]:
+        - generic [ref=f23e228]:
+          - heading "Языки" [level=2] [ref=f23e229]
+          - generic [ref=f23e230]: 7 технологий
+        - generic [ref=f23e231]:
+          - generic [ref=f23e232]:
+            - generic [ref=f23e233]: Go
+            - generic [ref=f23e234]: основной язык
+          - generic [ref=f23e235]: PHP 7/8
+          - generic [ref=f23e237]: Yii
+          - generic [ref=f23e239]: Laravel
+          - generic [ref=f23e241]: JavaScript
+          - generic [ref=f23e243]: Python
+          - generic [ref=f23e245]: SQL
+    - generic [ref=f23e247]:
+      - button "Закрыть" [ref=f23e248]
+      - button "Свернуть" [ref=f23e251]
+      - button "Развернуть" [ref=f23e253]
+  - dialog "Проекты" [ref=f23e264]:
+    - complementary [ref=f23e265]:
+      - generic [ref=f23e267]:
+        - generic [ref=f23e268]: Избранное
+        - button "Проекты" [ref=f23e269]
+        - button "Об этом разработчике" [ref=f23e272]
+        - button "Стек" [ref=f23e275]
+        - button "Опыт" [ref=f23e278]
+        - button "Контакты" [ref=f23e281]
+    - generic [ref=f23e284]:
+      - banner [ref=f23e285]:
+        - generic [ref=f23e286]: Проекты
+        - generic [ref=f23e287]: 4 объекта
+      - generic [ref=f23e289]:
+        - generic [ref=f23e290]:
+          - generic [ref=f23e291]: GophProfile
+          - generic [ref=f23e294]: GophKeeper
+          - generic [ref=f23e297]: sys-metrics
+          - generic [ref=f23e300]: gophermart-loyalty
+        - generic [ref=f23e303]: Дважды нажмите на папку, чтобы открыть проект
+    - generic [ref=f23e304]:
+      - button "Закрыть" [ref=f23e305]
+      - button "Свернуть" [ref=f23e308]
+      - button "Развернуть" [ref=f23e310]
+  - dialog "Контакты" [ref=f23e321]:
+    - generic [ref=f23e322]:
+      - banner [ref=f23e323]:
+        - generic [ref=f23e324]: Контакты
+      - generic [ref=f23e326]:
+        - generic [ref=f23e327]:
+          - img "Василий Кулагин" [ref=f23e328]
+          - heading "Василий Кулагин" [level=2] [ref=f23e329]
+          - generic [ref=f23e330]: Backend-разработчик · Go · Калининград
+          - generic [ref=f23e331]:
+            - link "GitHub" [ref=f23e332] [cursor=pointer]:
+              - /url: https://github.com/YNGXZRIST
+            - link "Telegram" [ref=f23e335] [cursor=pointer]:
+              - /url: https://t.me/xzrist
+            - link "Написать" [ref=f23e338] [cursor=pointer]:
+              - /url: mailto:vascool66@icloud.com
+        - generic [ref=f23e341]:
+          - link "github YNGXZRIST" [ref=f23e342] [cursor=pointer]:
+            - /url: https://github.com/YNGXZRIST
+            - generic [ref=f23e343]: github
+            - generic [ref=f23e344]: YNGXZRIST
+          - link "telegram @xzrist" [ref=f23e345] [cursor=pointer]:
+            - /url: https://t.me/xzrist
+            - generic [ref=f23e346]: telegram
+            - generic [ref=f23e347]: "@xzrist"
+          - link "почта vascool66@icloud.com" [ref=f23e348] [cursor=pointer]:
+            - /url: mailto:vascool66@icloud.com
+            - generic [ref=f23e349]: почта
+            - generic [ref=f23e350]: vascool66@icloud.com
+        - heading "Формат" [level=3] [ref=f23e351]
+        - generic [ref=f23e352]:
+          - generic [ref=f23e353]:
+            - generic [ref=f23e354]: Работа
+            - generic [ref=f23e355]: Удалённо · командировки
+          - generic [ref=f23e356]:
+            - generic [ref=f23e357]: Статус
+            - generic [ref=f23e358]: Открыт к предложениям
+    - generic [ref=f23e359]:
+      - button "Закрыть" [ref=f23e360]
+      - button "Свернуть" [ref=f23e363]
+      - button "Развернуть" [ref=f23e365]
+  - banner [ref=f23e31]:
+    - navigation [ref=f23e32]:
+      - button [ref=f23e34]
+      - button "Василий Кулагин" [ref=f23e36]
+      - button "Проекты" [ref=f23e38]
+      - button "Опыт" [ref=f23e40]
+      - button "Стек" [ref=f23e42]
+      - button "Контакты" [ref=f23e44]
+    - generic [ref=f23e45]:
+      - button "Spotlight" [ref=f23e55]
+      - generic [ref=f23e59]:
+        - button "Пункт управления" [ref=f23e60]
+        - generic [ref=f23e377]:
+          - generic [ref=f23e378]: Оформление
+          - generic [ref=f23e379]:
+            - button "Тёмное" [ref=f23e380]
+            - button "Светлое" [active] [ref=f23e383]
+      - generic [ref=f23e65]: Пн 23 нояб. 12:49
+  - navigation "Dock":
+    - generic [ref=f23e66]:
+      - button "Проекты" [ref=f23e68]
+      - button "Об этом разработчике" [ref=f23e70]
+      - button "Стек" [ref=f23e72]
+      - button "Опыт" [ref=f23e74]
+      - button "Контакты" [ref=f23e76]
+      - link "GitHub" [ref=f23e79]:
+        - /url: https://github.com/YNGXZRIST
+      - link "Telegram" [ref=f23e81]:
+        - /url: https://t.me/xzrist
+      - link "vascool66@icloud.com" [ref=f23e83]:
+        - /url: mailto:vascool66@icloud.com
