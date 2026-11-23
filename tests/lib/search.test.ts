@@ -27,3 +27,7 @@ it('Kubernetes и Grafana ищутся и по-русски', () => {
   expect(search('кубернетис', searchIndex).map(r => r.title)).toContain('Kubernetes')
   expect(search('графана', searchIndex).map(r => r.title)).toContain('Grafana')
 })
+it('Prometheus и Helm ищутся и по-русски', () => {
+  expect(search('прометеус', searchIndex).map(r => r.title)).toContain('Prometheus')
+  expect(search('хелм', searchIndex).map(r => r.title)).toContain('Helm')
+})

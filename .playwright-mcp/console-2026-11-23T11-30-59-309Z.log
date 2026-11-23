@@ -1,0 +1,7 @@
+[  185619ms] [ERROR] Failed to load resource: net::ERR_EMPTY_RESPONSE @ http://localhost:5179/partfolio/src/stores/theme.ts?t=1795433643747:1
+[  185619ms] [ERROR] Failed to load resource: net::ERR_EMPTY_RESPONSE @ http://localhost:5179/partfolio/src/styles/tokens.css?t=1795433643569:1
+[  185619ms] [ERROR] Failed to load resource: net::ERR_EMPTY_RESPONSE @ http://localhost:5179/partfolio/src/styles/glass.css?t=1795433643704:1
+[  185619ms] [ERROR] Failed to load resource: net::ERR_EMPTY_RESPONSE @ http://localhost:5179/partfolio/src/styles/ui.css?t=1795433643573:1
+[  185621ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5179/partfolio/src/App.vue?t=1795433643759:1
+[  185621ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5179/partfolio/@vite/client:1
+[  185623ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:5179/partfolio/assets/apple.png:1

@@ -15,6 +15,8 @@ const synonyms: Record<string, string[]> = {
   Redis: ['редис'],
   Kubernetes: ['кубернетис', 'k8s', 'кубер'],
   Grafana: ['графана'],
+  Prometheus: ['прометеус', 'прометей', 'метрики'],
+  Helm: ['хелм'],
   gRPC: ['грпц'],
   'LLM-интеграции': ['ии', 'нейросети', 'llm', 'ai'],
 }
