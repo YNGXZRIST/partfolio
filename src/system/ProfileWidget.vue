@@ -9,10 +9,10 @@ import { prefersReducedMotion } from '@/lib/motion'
 const wm = useWindows()
 const el = ref<HTMLElement | null>(null)
 
-// Появляется как баннер уведомления macOS: выезжает справа с лёгкой пружиной.
+// Появляется как баннер уведомления macOS: опускается сверху с лёгкой пружиной.
 onMounted(() => {
   if (!el.value || prefersReducedMotion()) return
-  gsap.fromTo(el.value, { x: 420, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: 'back.out(1.1)', delay: 1, clearProps: 'transform,opacity' })
+  gsap.fromTo(el.value, { y: -140, scale: 0.94, opacity: 0, transformOrigin: '50% 0%' }, { y: 0, scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.3)', delay: 1, clearProps: 'transform,opacity' })
 })
 </script>
 
