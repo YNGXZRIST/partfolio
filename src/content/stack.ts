@@ -15,7 +15,7 @@ export const stack: StackCategory[] = [
     { name: 'RabbitMQ' }, { name: 'DLX / DLQ' }, { name: 'Transactional outbox' }, { name: 'Идемпотентность' },
   ] },
   { id: 'infra', title: 'Инфраструктура', color: '#8e8e93', glyph: 'box', items: [
-    { name: 'Docker' }, { name: 'Docker Compose' }, { name: 'Linux' }, { name: 'Git' }, { name: 'GitHub Actions' }, { name: 'golang-migrate' }, { name: 'Kubernetes' }, { name: 'Helm' }, { name: 'Prometheus' }, { name: 'Grafana' },
+    { name: 'Docker' }, { name: 'Docker Compose' }, { name: 'Linux' }, { name: 'Git' }, { name: 'GitHub Actions' }, { name: 'golang-migrate' }, { name: 'Kubernetes' }, { name: 'Helm' }, { name: 'Prometheus' }, { name: 'Grafana' }, { name: 'Kibana' }, { name: 'Jaeger' }, { name: 'Vault' },
   ] },
   { id: 'ai', title: 'AI', color: '#bf5af2', glyph: 'spark', items: [
     { name: 'LLM-интеграции' }, { name: 'MCP' }, { name: 'Оркестрация агентов' },
