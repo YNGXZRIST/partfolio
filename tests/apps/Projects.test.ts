@@ -31,3 +31,10 @@ it('ProjectPage: блоки в порядке App Store, детали свёрн
   await c.find('[data-test="more"]').trigger('click')
   p.details.forEach(d => expect(c.text()).toContain(d))
 })
+
+it('в Finder у проектов их иконки, а не папки', () => {
+  const c = mount(Finder, { props: { id: 'finder' } })
+  const srcs = c.findAll('[data-test="folder"] img').map(i => i.attributes('src'))
+  expect(srcs.some(s => s?.includes('folder-sys'))).toBe(false)
+  projects.forEach(p => expect(srcs.some(s => s?.includes(p.icon))).toBe(true))
+})

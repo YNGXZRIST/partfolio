@@ -65,3 +65,9 @@ it('иконку можно перетащить, и при этом проек�
   expect(JSON.parse(localStorage.getItem('desktop-icons')!).gophprofile).toBeTruthy()
   c.unmount()
 })
+
+it('на рабочем столе иконки проектов, а не папки', () => {
+  const c = mount(Desktop)
+  const srcs = c.findAll('[data-test="desktop-icon"] img').map(i => i.attributes('src'))
+  projects.forEach((p, i) => expect(srcs[i]).toContain(p.icon))
+})

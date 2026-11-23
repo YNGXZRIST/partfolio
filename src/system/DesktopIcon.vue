@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount } from 'vue'
 
-const props = defineProps<{ label: string; icon: string; x: number; y: number; selected?: boolean }>()
+const props = defineProps<{ label: string; icon: string; x: number; y: number; selected?: boolean; rounded?: boolean }>()
 const emit = defineEmits<{ select: []; open: [origin: DOMRect]; move: [x: number, y: number]; drop: [] }>()
 
 // Перетаскивание как в Finder: после сдвига на 4px иконка едет за курсором; простой клик — выделение.
@@ -39,7 +39,7 @@ onBeforeUnmount(() => window.removeEventListener('pointermove', onMove))
     @pointerdown.stop="onDown" @click.stop
     @dblclick.stop="emit('open', ($event.currentTarget as HTMLElement).querySelector('.glyph')!.getBoundingClientRect())"
   >
-    <div class="glyph"><img :src="icon" alt="" draggable="false"></div>
+    <div class="glyph" :class="{ rounded }"><img :src="icon" alt="" draggable="false"></div>
     <div class="label">{{ label }}</div>
   </div>
 </template>
@@ -48,6 +48,7 @@ onBeforeUnmount(() => window.removeEventListener('pointermove', onMove))
 .dicon { position: absolute; z-index: 2; width: 96px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: default; user-select: none; touch-action: none; }
 .glyph { width: 68px; height: 68px; padding: 4px; border-radius: 8px; display: grid; place-items: center; }
 .glyph img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,.25)); }
+.glyph.rounded img { width: 58px; height: 58px; border-radius: 13px; object-fit: cover; }
 .label { max-width: 96px; padding: 1px 5px; border-radius: 4px; font-size: 12px; font-weight: 500; text-align: center; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.6); overflow-wrap: anywhere; }
 .glyph { transition: transform .12s ease, filter .12s ease; }
 .dicon:active .glyph { transform: scale(.94); filter: brightness(.7); }

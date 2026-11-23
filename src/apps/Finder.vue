@@ -32,11 +32,11 @@ const side: { label: string; app: AppId; icon: string }[] = [
     <div class="grid" @click="selected = null">
       <div v-for="p in projects" :key="p.slug" class="folder" :class="{ sel: selected === p.slug }" data-test="folder"
            @click.stop="selected = p.slug" @dblclick.stop="wm.activate(`project:${p.slug}`, ($event.currentTarget as HTMLElement).querySelector('.ficon')!.getBoundingClientRect())">
-        <div class="ficon"><img :src="asset('folder-sys.png')" alt=""><img class="badge" :src="asset(p.icon)" alt=""></div>
+        <div class="ficon"><img :src="asset(p.icon)" alt=""></div>
         <div class="fname">{{ p.name }}</div>
       </div>
     </div>
-    <div class="hint">Дважды нажмите на папку, чтобы открыть проект</div>
+    <div class="hint">Дважды нажмите на проект, чтобы открыть его</div>
   </AppWindow>
 </template>
 
@@ -46,11 +46,10 @@ const side: { label: string; app: AppId; icon: string }[] = [
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 18px 8px; padding: 18px 20px; }
 .folder { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: default; }
 .ficon { position: relative; width: 84px; height: 84px; padding: 4px; border-radius: 10px; }
-.ficon img:first-child { width: 100%; height: 100%; object-fit: contain; }
-.badge { position: absolute; left: 50%; top: 56%; width: 34px; height: 34px; transform: translate(-50%, -50%); border-radius: 8px; object-fit: cover; opacity: .9; }
+.ficon img:first-child { width: 100%; height: 100%; object-fit: cover; border-radius: 17px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.2)); }
 .fname { padding: 1px 6px; border-radius: 5px; font-size: 12px; text-align: center; }
-.ficon img:first-child, .badge { transition: transform .12s ease, filter .12s ease; }
-.folder:active .ficon img:first-child, .folder:active .badge { filter: brightness(.65); }
+.ficon img:first-child { transition: transform .12s ease, filter .12s ease; }
+.folder:active .ficon img:first-child { filter: brightness(.65); }
 .folder:active .ficon { transform: scale(.94); }
 .ficon { transition: transform .12s ease; }
 .sel .ficon { background: var(--fill-2); }

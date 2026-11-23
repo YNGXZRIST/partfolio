@@ -70,7 +70,7 @@ function componentFor(id: WindowId): Component {
 
     <DesktopIcon
       v-for="p in projects" :key="p.slug"
-      :label="p.name" :icon="asset('folder-sys.png')"
+      :label="p.name" :icon="asset(p.icon)" rounded
       :x="positions[p.slug].x" :y="positions[p.slug].y"
       :selected="selected === p.slug"
       @select="selected = p.slug"
