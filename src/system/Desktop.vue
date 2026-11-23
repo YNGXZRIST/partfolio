@@ -12,6 +12,7 @@ import Settings from '@/apps/Settings.vue'
 import CalendarApp from '@/apps/CalendarApp.vue'
 import Dock from './Dock.vue'
 import MenuBar from './MenuBar.vue'
+import Spotlight from './Spotlight.vue'
 import GlassDefs from './GlassDefs.vue'
 import { projects } from '@/content/projects'
 import type { AppId, WindowId } from '@/content/types'
@@ -51,6 +52,7 @@ function componentFor(id: WindowId): Component {
 
     <MenuBar @open-spotlight="spotlightOpen = true" />
     <Dock />
+    <Spotlight v-model:open="spotlightOpen" />
     <slot />
   </div>
 </template>

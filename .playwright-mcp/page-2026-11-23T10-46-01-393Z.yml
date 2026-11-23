@@ -1,0 +1,114 @@
+- generic [ref=f19e2]:
+  - img "welcome":
+    - img [aria-hidden]:
+      - generic: welcome
+    - img [aria-hidden]:
+      - generic: welcome
+      - generic: welcome
+      - generic: welcome
+  - generic [ref=f19e12]:
+    - generic [ref=f19e13]: Василий Кулагин
+    - generic [ref=f19e14]: Backend-разработчик · Go
+    - generic [ref=f19e15]: highload · распределённые системы · AI
+    - generic [ref=f19e16]: 5+ лет · Go · PHP · Vue
+    - generic [ref=f19e17]: ● Открыт к предложениям
+  - generic [ref=f19e18]:
+    - generic [ref=f19e19]: GophProfile
+    - generic [ref=f19e22]: GophKeeper
+    - generic [ref=f19e25]: sys-metrics
+    - generic [ref=f19e28]: gophermart-loyalty
+  - dialog "Об этом разработчике" [ref=f19e85]:
+    - generic [ref=f19e86]:
+      - banner [ref=f19e87]:
+        - generic [ref=f19e88]: Об этом разработчике
+      - generic [ref=f19e90]:
+        - generic [ref=f19e91]:
+          - img "Василий Кулагин" [ref=f19e92]
+          - heading "Василий Кулагин" [level=2] [ref=f19e93]
+          - generic [ref=f19e94]: Backend-разработчик · Go
+          - generic [ref=f19e95]: highload · распределённые системы · AI
+          - generic [ref=f19e96]: Открыт к предложениям
+        - generic [ref=f19e98]:
+          - generic [ref=f19e99]:
+            - generic [ref=f19e100]: Стаж
+            - generic [ref=f19e101]: 5+ лет в продакшене
+          - generic [ref=f19e102]:
+            - generic [ref=f19e103]: Основной язык
+            - generic [ref=f19e104]: Go
+          - generic [ref=f19e105]:
+            - generic [ref=f19e106]: Также
+            - generic [ref=f19e107]: PHP (Yii, Laravel), Vue.js
+          - generic [ref=f19e108]:
+            - generic [ref=f19e109]: Образование
+            - generic [ref=f19e110]: БФУ им. И. Канта, прикладная математика и информатика
+          - generic [ref=f19e111]:
+            - generic [ref=f19e112]: Курсы
+            - generic [ref=f19e113]: Яндекс Практикум — продвинутый Go-разработчик
+          - generic [ref=f19e114]:
+            - generic [ref=f19e115]: Английский
+            - generic [ref=f19e116]: B1
+          - generic [ref=f19e117]:
+            - generic [ref=f19e118]: Город
+            - generic [ref=f19e119]: Калининград
+          - generic [ref=f19e120]:
+            - generic [ref=f19e121]: Формат
+            - generic [ref=f19e122]: Удалённо · командировки
+        - heading "Образование и курсы" [level=3] [ref=f19e123]
+        - generic [ref=f19e124]:
+          - generic [ref=f19e125]:
+            - generic [ref=f19e126]:
+              - generic [ref=f19e127]: Прикладная математика и информатика
+              - generic [ref=f19e128]: Балтийский федеральный университет им. И. Канта · Бакалавр · Институт физико-математических наук и информационных технологий · Калининград
+            - generic [ref=f19e129]: "2023"
+          - generic [ref=f19e130]:
+            - generic [ref=f19e131]:
+              - generic [ref=f19e132]: Продвинутый Go-разработчик + инфраструктура и продакшн
+              - generic [ref=f19e133]: Яндекс Практикум · Go-разработчик
+            - generic [ref=f19e134]: "2026"
+          - generic [ref=f19e135]:
+            - generic [ref=f19e136]:
+              - generic [ref=f19e137]: Специалист по искусственному интеллекту
+              - generic [ref=f19e138]: БФУ им. И. Канта · Повышение квалификации
+            - generic [ref=f19e139]: "2023"
+          - generic [ref=f19e140]:
+            - generic [ref=f19e141]:
+              - generic [ref=f19e142]: Мобильная разработка, Android
+              - generic [ref=f19e143]: IT-школа SAMSUNG · Курс
+            - generic [ref=f19e144]: "2019"
+        - heading "О себе" [level=3] [ref=f19e145]
+        - paragraph [ref=f19e147]: "Бэкенд-разработчик с упором на Go, highload и AI. Проектирую сервисы и REST/gRPC API, работаю с PostgreSQL, MySQL, Redis и RabbitMQ. Пишу на Go и PHP (Yii, Laravel), при необходимости делаю фронтенд на Vue.js. За плечами — highload-платформа автоматизации контекстной рекламы, которую я развивал и поддерживал: от фоновых воркеров и биллинга до систем анализа рекламных кампаний и автоматических аудитов."
+        - heading "Код и AI" [level=3] [ref=f19e148]
+        - paragraph [ref=f19e150]: "Отдельно люблю задачи на стыке кода и AI: строю интеграции с LLM, MCP-системы и ИИ-ассистентов, занимаюсь оркестрацией агентов и пишу кастомные скиллы. Мне интересно превращать «умные» модели в реальные рабочие инструменты, которые экономят людям время."
+        - heading "Подход к работе" [level=3] [ref=f19e151]
+        - paragraph [ref=f19e153]: "Веду задачу полным циклом: согласование ТЗ и сбор требований, оценка и согласование сроков, выбор технических решений и архитектуры, разработка и вывод в продакшен. Ценю чистый и поддерживаемый код, продумываю архитектуру и не маскирую баги, а ищу их корневую причину. Привык брать ответственность за результат и общаться с заказчиком напрямую."
+        - heading "Бэкграунд" [level=3] [ref=f19e154]
+        - paragraph [ref=f19e156]: Окончил бакалавриат БФУ им. И. Канта по направлению «Прикладная математика и информатика». Математическая база помогает мне в задачах, где важны алгоритмы, аналитика и работа с данными.
+    - generic [ref=f19e157]:
+      - button "Закрыть" [ref=f19e158]
+      - button "Свернуть" [ref=f19e161]
+      - button "Развернуть" [ref=f19e163]
+  - banner [ref=f19e31]:
+    - navigation [ref=f19e32]:
+      - button [ref=f19e34]
+      - button "Василий Кулагин" [ref=f19e36]
+      - button "Проекты" [ref=f19e38]
+      - button "Опыт" [ref=f19e40]
+      - button "Стек" [ref=f19e42]
+      - button "Контакты" [ref=f19e44]
+    - generic [ref=f19e45]:
+      - button "Spotlight" [ref=f19e55]
+      - button "Пункт управления" [ref=f19e60]
+      - generic [ref=f19e65]: Пн 23 нояб. 12:46
+  - navigation "Dock":
+    - generic [ref=f19e66]:
+      - button "Проекты" [ref=f19e68]
+      - button "Об этом разработчике" [active] [ref=f19e70]
+      - button "Стек" [ref=f19e72]
+      - button "Опыт" [ref=f19e74]
+      - button "Контакты" [ref=f19e76]
+      - link "GitHub" [ref=f19e79]:
+        - /url: https://github.com/YNGXZRIST
+      - link "Telegram" [ref=f19e81]:
+        - /url: https://t.me/xzrist
+      - link "vascool66@icloud.com" [ref=f19e83]:
+        - /url: mailto:vascool66@icloud.com

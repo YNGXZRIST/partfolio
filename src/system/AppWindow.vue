@@ -45,7 +45,7 @@ watch(() => state.value?.status, async (now, before) => {
     const from = dockRect()
     if (from) await animateRestore(el.value, from)
   }
-})
+}, { flush: 'post' })
 
 type Dir = 'move' | 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw'
 let drag: { dir: Dir; sx: number; sy: number; start: Rect } | null = null
