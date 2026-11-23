@@ -41,3 +41,9 @@ it('опыт и приложения', () => {
   expect(apps.map(a => a.id)).toEqual(['finder', 'about', 'settings', 'calendar', 'contacts'])
   expect(stack[0].items[0].name).toBe('Go')
 })
+
+it('вуз везде называется одинаково', () => {
+  const json = JSON.stringify({ profile, education })
+  expect(json).not.toContain('Балтийский федеральный')
+  education.filter(e => e.place.includes('Канта')).forEach(e => expect(e.place).toBe('БФУ им. И. Канта'))
+})
