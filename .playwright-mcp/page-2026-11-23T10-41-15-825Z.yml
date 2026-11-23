@@ -1,0 +1,143 @@
+- generic [ref=f17e2]:
+  - img "welcome":
+    - img [aria-hidden]:
+      - generic: welcome
+    - img [aria-hidden]:
+      - generic: welcome
+      - generic: welcome
+      - generic: welcome
+  - generic [ref=f17e12]:
+    - generic [ref=f17e13]: Василий Кулагин
+    - generic [ref=f17e14]: Backend-разработчик · Go
+    - generic [ref=f17e15]: highload · распределённые системы · AI
+    - generic [ref=f17e16]: 5+ лет · Go · PHP · Vue
+    - generic [ref=f17e17]: ● Открыт к предложениям
+  - generic [ref=f17e18]:
+    - generic [ref=f17e19]: GophProfile
+    - generic [ref=f17e22]: GophKeeper
+    - generic [ref=f17e25]: sys-metrics
+    - generic [ref=f17e28]: gophermart-loyalty
+  - dialog "Проекты" [ref=f17e83]:
+    - complementary [ref=f17e84]:
+      - generic [ref=f17e86]:
+        - generic [ref=f17e87]: Избранное
+        - button "Проекты" [ref=f17e88]
+        - button "Об этом разработчике" [ref=f17e91]
+        - button "Стек" [ref=f17e94]
+        - button "Опыт" [ref=f17e97]
+        - button "Контакты" [ref=f17e100]
+    - generic [ref=f17e103]:
+      - banner [ref=f17e104]:
+        - generic [ref=f17e105]: Проекты
+        - generic [ref=f17e106]: 4 объекта
+      - generic [ref=f17e108]:
+        - generic [ref=f17e109]:
+          - generic [ref=f17e110]: GophProfile
+          - generic [ref=f17e113]: GophKeeper
+          - generic [ref=f17e116]: sys-metrics
+          - generic [ref=f17e119]: gophermart-loyalty
+        - generic [ref=f17e122]: Дважды нажмите на папку, чтобы открыть проект
+    - generic [ref=f17e123]:
+      - button "Закрыть" [ref=f17e124]
+      - button "Свернуть" [ref=f17e127]
+      - button "Развернуть" [ref=f17e129]
+  - dialog "GophProfile" [ref=f17e141]:
+    - generic [ref=f17e142]:
+      - banner [ref=f17e143]:
+        - generic [ref=f17e144]: GophProfile
+      - generic [ref=f17e146]:
+        - generic [ref=f17e148]:
+          - heading "GophProfile" [level=2] [ref=f17e149]
+          - paragraph [ref=f17e150]: Сервис, который хранит аватарки пользователей и раздаёт их другим сайтам в нужном размере.
+          - generic [ref=f17e151]:
+            - link "Открыть на GitHub" [ref=f17e152]:
+              - /url: https://github.com/YNGXZRIST/gophprofile
+            - generic [ref=f17e153]:
+              - generic [ref=f17e154]: Go
+              - generic [ref=f17e155]: PostgreSQL
+              - generic [ref=f17e156]: RabbitMQ
+              - generic [ref=f17e157]: S3 / MinIO
+              - generic [ref=f17e158]: Docker
+              - generic [ref=f17e159]: golang-migrate
+        - generic [ref=f17e160]:
+          - generic [ref=f17e161]:
+            - generic [ref=f17e162]: Язык
+            - generic [ref=f17e163]: Go 1.26
+          - generic [ref=f17e164]:
+            - generic [ref=f17e165]: Тип
+            - generic [ref=f17e166]: Микросервис
+          - generic [ref=f17e167]:
+            - generic [ref=f17e168]: Хранилище
+            - generic [ref=f17e169]: PostgreSQL + S3
+          - generic [ref=f17e170]:
+            - generic [ref=f17e171]: Транспорт
+            - generic [ref=f17e172]: REST + RabbitMQ
+        - generic [ref=f17e173]:
+          - heading "Что умеет" [level=3] [ref=f17e174]
+          - generic [ref=f17e175]:
+            - generic [ref=f17e176]: Картинку загружают один раз — другие сайты получают её по API в нужном размере
+            - generic [ref=f17e180]: Миниатюры готовятся в фоне и не задерживают загрузку
+            - generic [ref=f17e184]: Ни одно событие не теряется, даже если очередь временно недоступна
+            - generic [ref=f17e188]: Сервис сам следит за здоровьем базы, хранилища и брокера
+        - generic [ref=f17e192]:
+          - heading "Как устроено" [level=3] [ref=f17e193]
+          - generic [ref=f17e194]:
+            - img "Схема архитектуры" [ref=f17e196]:
+              - generic [ref=f17e197]: tx
+              - generic [ref=f17e199]: upload
+              - generic [ref=f17e201]:
+                - generic [ref=f17e203]: Клиент
+                - generic [ref=f17e204]: POST /avatars
+              - generic [ref=f17e205]:
+                - generic [ref=f17e207]: server
+                - generic [ref=f17e208]: net/http
+              - generic [ref=f17e209]:
+                - generic [ref=f17e211]: PostgreSQL
+                - generic [ref=f17e212]: avatars + outbox
+              - generic [ref=f17e213]:
+                - generic [ref=f17e215]: consumer
+                - generic [ref=f17e216]: миниатюры → S3
+              - generic [ref=f17e217]:
+                - generic [ref=f17e219]: S3 / MinIO
+                - generic [ref=f17e220]: оригиналы
+              - generic [ref=f17e221]:
+                - generic [ref=f17e223]: publisher
+                - generic [ref=f17e224]: читает outbox
+              - generic [ref=f17e225]:
+                - generic [ref=f17e227]: RabbitMQ
+                - generic [ref=f17e228]: DLX / DLQ
+            - paragraph [ref=f17e229]: server кладёт оригинал в S3 и в одной транзакции пишет запись аватарки и событие в таблицу outbox. publisher вычитывает неопубликованные события и шлёт их в RabbitMQ. consumer генерирует миниатюры или удаляет файлы, обновляя статус pending → running → success/failed. Сообщения с ошибкой уходят в DLQ.
+        - generic [ref=f17e230]:
+          - heading "Технические детали" [level=3] [ref=f17e231]
+          - generic [ref=f17e232]:
+            - paragraph [ref=f17e233]: Микросервис для загрузки, хранения, асинхронной обработки и раздачи аватарок пользователей. Пользователь один раз загружает изображение, а сторонние платформы получают его в нужном размере по REST API. Оригинал сохраняется в S3, метаданные — в PostgreSQL, а миниатюры 100×100 и 300×300 генерируются асинхронно через RabbitMQ и отдельный worker.
+            - button "ещё" [ref=f17e234]
+    - generic [ref=f17e235]:
+      - button "Закрыть" [ref=f17e236]
+      - button "Свернуть" [ref=f17e239]
+      - button "Развернуть" [ref=f17e241]
+  - banner [ref=f17e31]:
+    - navigation [ref=f17e32]:
+      - button [ref=f17e34]
+      - button "Василий Кулагин" [ref=f17e36]
+      - button "Проекты" [ref=f17e38]
+      - button "Опыт" [ref=f17e40]
+      - button "Стек" [ref=f17e42]
+      - button "Контакты" [ref=f17e44]
+    - generic [ref=f17e45]:
+      - button "Spotlight" [ref=f17e52]
+      - button "Пункт управления" [ref=f17e57]
+      - generic [ref=f17e63]: Пн 23 нояб. 12:41
+  - navigation "Dock":
+    - generic [ref=f17e64]:
+      - button "Проекты" [ref=f17e66]
+      - button "Об этом разработчике" [ref=f17e68]
+      - button "Стек" [ref=f17e70]
+      - button "Опыт" [ref=f17e72]
+      - button "Контакты" [ref=f17e74]
+      - link "GitHub" [ref=f17e77]:
+        - /url: https://github.com/YNGXZRIST
+      - link "Telegram" [ref=f17e79]:
+        - /url: https://t.me/xzrist
+      - link "vascool66@icloud.com" [ref=f17e81]:
+        - /url: mailto:vascool66@icloud.com

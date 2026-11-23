@@ -30,9 +30,7 @@ import { asset } from '@/lib/asset'
 .sub { font-size: 12px; color: rgba(29, 29, 31, .66); }
 .status { margin-top: 6px; font-size: 12px; font-weight: 600; }
 .dot { color: #1fbf4a; }
-@media (prefers-color-scheme: dark) {
-  .widget { color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .35); }
-  .sub { color: rgba(255, 255, 255, .78); }
-  .dot { color: #34ff6a; }
-}
+:root[data-theme="dark"] .widget { color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .35); }
+  :root[data-theme="dark"] .sub { color: rgba(255, 255, 255, .78); }
+  :root[data-theme="dark"] .dot { color: #34ff6a; }
 </style>

@@ -67,3 +67,13 @@ it('новые окна открываются по центру каскадо�
   expect([a.x, a.y]).toEqual([Math.round((window.innerWidth - a.w) / 2), 60])
   expect([f.x - Math.round((window.innerWidth - f.w) / 2), f.y]).toEqual([28, 88])
 })
+
+it('activate запоминает точку раскрытия только для нового окна', () => {
+  const w = useWindows()
+  const r = { left: 10, top: 10, width: 50, height: 50 } as DOMRect
+  w.activate('about', r)
+  expect(w.takeOrigin('about')).toBe(r)
+  expect(w.takeOrigin('about')).toBeUndefined()
+  w.activate('about', r)
+  expect(w.takeOrigin('about')).toBeUndefined()
+})

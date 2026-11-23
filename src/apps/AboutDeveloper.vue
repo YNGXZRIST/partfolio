@@ -47,5 +47,5 @@ h2 { margin: 16px 0 2px; font-size: 26px; font-weight: 700; letter-spacing: -.02
 .dot { width: 7px; height: 7px; border-radius: 50%; background: #28c840; }
 .edu { align-items: flex-start; }
 .sub { margin-top: 2px; font-size: 12px; color: var(--text-2); }
-@media (prefers-color-scheme: dark) { .status { color: #4ade80; } }
+:root[data-theme="dark"] .status { color: #4ade80; }
 </style>

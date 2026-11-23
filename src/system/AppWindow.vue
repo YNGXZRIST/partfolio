@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { WindowId } from '@/content/types'
 import { useWindows } from '@/stores/windows'
 import { clampRect, type Rect } from '@/lib/geometry'
-import { animateMinimize, animateOpen, animateRestore, clearAnim } from '@/lib/motion'
+import { animateMinimize, animateOpen, animateOpenFrom, animateRestore, clearAnim } from '@/lib/motion'
 
 const props = withDefaults(defineProps<{ id: WindowId; title: string; sidebar?: boolean; sidebarWidth?: number }>(), {
   sidebar: false,
@@ -87,7 +87,11 @@ function onViewportResize() {
 
 onMounted(() => {
   window.addEventListener('resize', onViewportResize)
-  if (el.value) animateOpen(el.value)
+  if (el.value) {
+    const origin = wm.takeOrigin(props.id)
+    if (origin) animateOpenFrom(el.value, origin)
+    else animateOpen(el.value)
+  }
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', onViewportResize)

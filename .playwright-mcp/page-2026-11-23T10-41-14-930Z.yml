@@ -1,0 +1,68 @@
+- generic [ref=f17e2]:
+  - img "welcome":
+    - img [aria-hidden]:
+      - generic: welcome
+    - img [aria-hidden]:
+      - generic: welcome
+      - generic: welcome
+      - generic: welcome
+  - generic [ref=f17e12]:
+    - generic [ref=f17e13]: Василий Кулагин
+    - generic [ref=f17e14]: Backend-разработчик · Go
+    - generic [ref=f17e15]: highload · распределённые системы · AI
+    - generic [ref=f17e16]: 5+ лет · Go · PHP · Vue
+    - generic [ref=f17e17]: ● Открыт к предложениям
+  - generic [ref=f17e18]:
+    - generic [ref=f17e19]: GophProfile
+    - generic [ref=f17e22]: GophKeeper
+    - generic [ref=f17e25]: sys-metrics
+    - generic [ref=f17e28]: gophermart-loyalty
+  - dialog "Проекты" [ref=f17e83]:
+    - complementary [ref=f17e84]:
+      - generic [ref=f17e86]:
+        - generic [ref=f17e87]: Избранное
+        - button "Проекты" [ref=f17e88]
+        - button "Об этом разработчике" [ref=f17e91]
+        - button "Стек" [ref=f17e94]
+        - button "Опыт" [ref=f17e97]
+        - button "Контакты" [ref=f17e100]
+    - generic [ref=f17e103]:
+      - banner [ref=f17e104]:
+        - generic [ref=f17e105]: Проекты
+        - generic [ref=f17e106]: 4 объекта
+      - generic [ref=f17e108]:
+        - generic [ref=f17e109]:
+          - generic [ref=f17e110]: GophProfile
+          - generic [ref=f17e113]: GophKeeper
+          - generic [ref=f17e116]: sys-metrics
+          - generic [ref=f17e119]: gophermart-loyalty
+        - generic [ref=f17e122]: Дважды нажмите на папку, чтобы открыть проект
+    - generic [ref=f17e123]:
+      - button "Закрыть" [ref=f17e124]
+      - button "Свернуть" [ref=f17e127]
+      - button "Развернуть" [ref=f17e129]
+  - banner [ref=f17e31]:
+    - navigation [ref=f17e32]:
+      - button [ref=f17e34]
+      - button "Василий Кулагин" [ref=f17e36]
+      - button "Проекты" [ref=f17e38]
+      - button "Опыт" [ref=f17e40]
+      - button "Стек" [ref=f17e42]
+      - button "Контакты" [ref=f17e44]
+    - generic [ref=f17e45]:
+      - button "Spotlight" [ref=f17e52]
+      - button "Пункт управления" [ref=f17e57]
+      - generic [ref=f17e63]: Пн 23 нояб. 12:41
+  - navigation "Dock":
+    - generic [ref=f17e64]:
+      - button "Проекты" [active] [ref=f17e66]
+      - button "Об этом разработчике" [ref=f17e68]
+      - button "Стек" [ref=f17e70]
+      - button "Опыт" [ref=f17e72]
+      - button "Контакты" [ref=f17e74]
+      - link "GitHub" [ref=f17e77]:
+        - /url: https://github.com/YNGXZRIST
+      - link "Telegram" [ref=f17e79]:
+        - /url: https://t.me/xzrist
+      - link "vascool66@icloud.com" [ref=f17e81]:
+        - /url: mailto:vascool66@icloud.com

@@ -10,6 +10,8 @@ const MENUBAR_H = 28
 const DOCK_RESERVE = 92
 
 const windows = ref(new Map<WindowId, WinState>())
+/** Откуда открывать окно (прямоугольник иконки) — для анимации раскрытия. */
+const origins = new Map<WindowId, DOMRect>()
 const order = ref<WindowId[]>([])
 
 const activeId = computed<WindowId | null>(() => {
@@ -61,9 +63,9 @@ function focus(id: WindowId) {
 }
 
 /** Поведение клика по иконке Dock/меню/Spotlight: закрыто → открыть, свёрнуто → развернуть, открыто → наверх. */
-function activate(id: WindowId) {
+function activate(id: WindowId, origin?: DOMRect) {
   const s = windows.value.get(id)
-  if (!s) open(id)
+  if (!s) { if (origin) origins.set(id, origin); open(id) }
   else if (s.status === 'minimized') restore(id)
   else focus(id)
 }
@@ -82,16 +84,23 @@ function toggleZoom(id: WindowId, viewport: { w: number; h: number }) {
   }
 }
 
+function takeOrigin(id: WindowId): DOMRect | undefined {
+  const o = origins.get(id)
+  origins.delete(id)
+  return o
+}
+
 function setRect(id: WindowId, r: Rect) {
   const s = windows.value.get(id)
   if (s) s.rect = r
 }
 
 export function useWindows() {
-  return { windows, order, activeId, open, close, minimize, restore, focus, activate, toggleZoom, setRect }
+  return { windows, order, activeId, open, close, minimize, restore, focus, activate, toggleZoom, setRect, takeOrigin }
 }
 
 export function resetWindows() {
   windows.value = new Map()
   order.value = []
+  origins.clear()
 }

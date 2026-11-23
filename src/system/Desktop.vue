@@ -7,6 +7,8 @@ import DesktopIcon from './DesktopIcon.vue'
 import AppPlaceholder from './AppPlaceholder.vue'
 import AboutDeveloper from '@/apps/AboutDeveloper.vue'
 import Contacts from '@/apps/Contacts.vue'
+import Finder from '@/apps/Finder.vue'
+import ProjectPage from '@/apps/ProjectPage.vue'
 import Dock from './Dock.vue'
 import MenuBar from './MenuBar.vue'
 import GlassDefs from './GlassDefs.vue'
@@ -19,8 +21,8 @@ const wm = useWindows()
 const selected = ref<string | null>(null)
 const spotlightOpen = ref(false)
 
-const appComponents: Partial<Record<AppId, Component>> = { about: AboutDeveloper, contacts: Contacts }
-const projectComponent: Component | null = null
+const appComponents: Partial<Record<AppId, Component>> = { about: AboutDeveloper, contacts: Contacts, finder: Finder }
+const projectComponent: Component | null = ProjectPage
 
 function componentFor(id: WindowId): Component {
   if (id.startsWith('project:')) return projectComponent ?? AppPlaceholder
@@ -41,7 +43,7 @@ function componentFor(id: WindowId): Component {
         :label="p.name" :icon="asset('folder-sys.png')"
         :selected="selected === p.slug"
         @select="selected = p.slug"
-        @open="selected = null; wm.activate(`project:${p.slug}`)"
+        @open="(o: DOMRect) => { selected = null; wm.activate(`project:${p.slug}`, o) }"
       />
     </div>
 

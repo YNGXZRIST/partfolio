@@ -9,17 +9,21 @@ import { profile } from '@/content/profile'
 import { useWindows } from '@/stores/windows'
 import { formatMenuClock } from '@/lib/date'
 import { asset } from '@/lib/asset'
+import { useTheme } from '@/stores/theme'
 
 const emit = defineEmits<{ 'open-spotlight': [] }>()
 const wm = useWindows()
 const root = ref<HTMLElement | null>(null)
 const open = ref<string | null>(null)
 const now = ref(new Date())
+const { theme, setTheme } = useTheme()
 
 type Menu = { id: string; label: string; bold?: boolean; items: MenuItem[] }
 const menus = computed<Menu[]>(() => [
   { id: 'apple', label: '', items: [
     { label: 'Об этом разработчике', action: () => wm.activate('about') },
+    { separator: true, label: '' },
+    { label: theme.value === 'dark' ? 'Светлое оформление' : 'Тёмное оформление', action: () => setTheme(theme.value === 'dark' ? 'light' : 'dark') },
     { separator: true, label: '' },
     { label: 'Системные настройки…', hint: 'стек', action: () => wm.activate('settings') },
     { separator: true, label: '' },
@@ -78,7 +82,24 @@ onBeforeUnmount(() => {
       <button class="mitem ico-btn" data-test="spotlight-btn" aria-label="Spotlight" @click="emit('open-spotlight')">
         <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6" /><path d="M10 10l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
       </button>
-      <svg class="ico" viewBox="0 0 18 16" aria-hidden="true"><rect x="1" y="2" width="16" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3" /><circle cx="13.5" cy="4.5" r="1.6" fill="currentColor" /><rect x="1" y="9" width="16" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3" /><circle cx="4.5" cy="11.5" r="1.6" fill="currentColor" /></svg>
+      <div class="mwrap">
+        <button class="mitem ico-btn" :class="{ on: open === 'cc' }" data-test="cc-btn" aria-label="Пункт управления" @click="toggle('cc')">
+          <svg class="ico" viewBox="0 0 18 16" aria-hidden="true"><rect x="1" y="2" width="16" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3" /><circle cx="13.5" cy="4.5" r="1.6" fill="currentColor" /><rect x="1" y="9" width="16" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3" /><circle cx="4.5" cy="11.5" r="1.6" fill="currentColor" /></svg>
+        </button>
+        <div v-if="open === 'cc'" class="cc lg lg-dense" data-test="control-center">
+          <div class="cc-tile">
+            <div class="cc-title">Оформление</div>
+            <div class="seg">
+              <button :class="{ on: theme === 'dark' }" data-theme-option="dark" @click="setTheme('dark')">
+                <svg viewBox="0 0 16 16"><path d="M13 9.5A5.5 5.5 0 0 1 6.5 3a5.5 5.5 0 1 0 6.5 6.5z" /></svg>Тёмное
+              </button>
+              <button :class="{ on: theme === 'light' }" data-theme-option="light" @click="setTheme('light')">
+                <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" /><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M3 13l1.4-1.4M11.6 4.4L13 3" /></svg>Светлое
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <span class="clock">{{ formatMenuClock(now) }}</span>
     </div>
   </header>
@@ -91,7 +112,7 @@ onBeforeUnmount(() => {
   display: flex; align-items: center; justify-content: space-between; padding: 0 8px;
   font-size: 13px; color: #1d1d1f; user-select: none;
 }
-@media (prefers-color-scheme: dark) { .menubar { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); } }
+:root[data-theme="dark"] .menubar { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
 .left, .right { display: flex; align-items: center; height: 100%; gap: 2px; }
 .right { gap: 6px; padding-right: 6px; }
 .mwrap { position: relative; height: 100%; display: flex; align-items: center; }
@@ -101,10 +122,18 @@ onBeforeUnmount(() => {
 }
 .mitem.bold { font-weight: 700; }
 .mitem.on { background: rgba(255, 255, 255, .35); box-shadow: inset 0 0 0 .5px rgba(255,255,255,.5); }
-@media (prefers-color-scheme: dark) { .mitem.on { background: rgba(255, 255, 255, .18); } }
+:root[data-theme="dark"] .mitem.on { background: rgba(255, 255, 255, .18); }
 .apple-logo { height: 15px; filter: brightness(0); }
-@media (prefers-color-scheme: dark) { .apple-logo { filter: brightness(0) invert(1); } }
+:root[data-theme="dark"] .apple-logo { filter: brightness(0) invert(1); }
 .ico { width: 18px; height: 15px; opacity: .9; }
 .ico-btn { padding: 0 4px; }
 .clock { padding: 0 4px; font-variant-numeric: tabular-nums; }
+.cc { position: absolute; top: calc(100% + 4px); right: -40px; width: 300px; padding: 10px; border-radius: 22px; z-index: 9500; color: var(--text); text-shadow: none; }
+.cc-tile { padding: 12px; border-radius: 16px; background: var(--fill); box-shadow: inset 0 0 0 .5px var(--hairline); }
+.cc-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.seg button { display: flex; align-items: center; justify-content: center; gap: 6px; height: 34px; border: 0; border-radius: 10px; background: var(--fill-2); color: var(--text); font-size: 13px; cursor: default; }
+.seg button.on { background: var(--accent); color: #fff; }
+.seg svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.seg button:first-child svg { fill: currentColor; stroke: none; }
 </style>

@@ -45,8 +45,7 @@ html.lg-refract .lg {
 }
 html.lg-refract .lg-dense { backdrop-filter: url(#lg-lens) blur(14px) saturate(190%); }
 
-@media (prefers-color-scheme: dark) {
-  .lg {
+:root[data-theme="dark"] .lg {
     background: linear-gradient(135deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .03) 45%, rgba(255, 255, 255, .07) 100%);
     box-shadow:
       0 10px 34px rgba(0, 0, 0, .35),
@@ -55,17 +54,14 @@ html.lg-refract .lg-dense { backdrop-filter: url(#lg-lens) blur(14px) saturate(1
       inset 0 -1px 1px rgba(255, 255, 255, .08),
       inset 0 0 24px rgba(255, 255, 255, .05);
   }
-  .lg::after { opacity: .6; }
-  .lg-dense { background: linear-gradient(135deg, rgba(40, 42, 52, .66), rgba(28, 30, 38, .56)); }
-}
+  :root[data-theme="dark"] .lg::after { opacity: .6; }
+  :root[data-theme="dark"] .lg-dense { background: linear-gradient(135deg, rgba(40, 42, 52, .66), rgba(28, 30, 38, .56)); }
 
 /* Нет backdrop-filter — сплошная полупрозрачная заливка, всё читаемо. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .lg { background: rgba(240, 244, 252, .9); }
   .lg-dense { background: rgba(246, 246, 248, .96); }
-  @media (prefers-color-scheme: dark) {
-    .lg, .lg-dense { background: rgba(36, 38, 46, .94); }
-  }
+  :root[data-theme="dark"] .lg, :root[data-theme="dark"] .lg-dense { background: rgba(36, 38, 46, .94); }
 }
 
 /* Окна — плотнее (читаемость текста важнее эффекта), но с тем же бликом. */

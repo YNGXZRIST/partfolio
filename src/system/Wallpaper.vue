@@ -55,5 +55,5 @@
 .wallpaper { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .wp { position: absolute; inset: 0; width: 100%; height: 100%; }
 .wp-dark { display: none; }
-@media (prefers-color-scheme: dark) { .wp-light { display: none; } .wp-dark { display: block; } }
+:root[data-theme="dark"] .wp-light { display: none; } :root[data-theme="dark"] .wp-dark { display: block; }
 </style>

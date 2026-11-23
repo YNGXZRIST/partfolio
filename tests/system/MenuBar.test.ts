@@ -73,3 +73,14 @@ it('лупа открывает Spotlight', async () => {
   expect(c.emitted('open-spotlight')).toHaveLength(1)
   c.unmount()
 })
+
+it('Пункт управления переключает тему', async () => {
+  const { initTheme, useTheme } = await import('@/stores/theme')
+  localStorage.clear(); initTheme()
+  const c = mk()
+  await c.find('[data-test="cc-btn"]').trigger('click')
+  await c.find('[data-theme-option="light"]').trigger('click')
+  expect(useTheme().theme.value).toBe('light')
+  expect(document.documentElement.dataset.theme).toBe('light')
+  c.unmount()
+})
