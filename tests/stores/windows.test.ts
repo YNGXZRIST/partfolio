@@ -60,10 +60,10 @@ it('toggleZoom дважды возвращает исходный rect', () => {
   expect(w.windows.value.get('about')!.rect).toEqual(before)
 })
 
-it('новые окна открываются каскадом', () => {
+it('новые окна открываются по центру каскадом', () => {
   const w = useWindows()
   w.open('about'); w.open('finder')
   const a = w.windows.value.get('about')!.rect, f = w.windows.value.get('finder')!.rect
-  expect([a.x, a.y]).toEqual([120, 70])
-  expect([f.x, f.y]).toEqual([148, 98])
+  expect([a.x, a.y]).toEqual([Math.round((window.innerWidth - a.w) / 2), 60])
+  expect([f.x - Math.round((window.innerWidth - f.w) / 2), f.y]).toEqual([28, 88])
 })

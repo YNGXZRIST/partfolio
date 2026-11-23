@@ -1,10 +1,7 @@
 <script setup lang="ts">
+import Desktop from './system/Desktop.vue'
 </script>
 
 <template>
-  <div class="app-root" />
+  <Desktop />
 </template>
-
-<style scoped>
-.app-root { position: fixed; inset: 0; background: var(--bg); }
-</style>

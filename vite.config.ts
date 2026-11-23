@@ -6,6 +6,7 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   base: '/partfolio/',
   plugins: [vue()],
+  optimizeDeps: { entries: ['index.html'] },
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   test: { environment: 'jsdom', globals: true, env: { BASE_URL: '/partfolio/' } },
 })

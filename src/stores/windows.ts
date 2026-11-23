@@ -33,7 +33,9 @@ function open(id: WindowId) {
   if (existing) { existing.status = 'open'; raise(id); return }
   const n = windows.value.size
   const { w, h } = sizeFor(id)
-  windows.value.set(id, { id, status: 'open', rect: { x: 120 + 28 * n, y: 70 + 28 * n, w, h }, zoomed: false, prevRect: null })
+  const vw = typeof window === 'undefined' ? 1440 : window.innerWidth
+  const x = Math.max(16, Math.round((vw - w) / 2)) + 28 * n
+  windows.value.set(id, { id, status: 'open', rect: { x, y: 60 + 28 * n, w, h }, zoomed: false, prevRect: null })
   raise(id)
 }
 
