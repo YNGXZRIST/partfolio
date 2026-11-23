@@ -1,10 +1,74 @@
-/* Liquid Glass: базовое стекло без url()-фильтров — иначе браузер может отбросить blur целиком. */
-.glass-bar {
-  background: var(--glass-bar);
-  backdrop-filter: blur(30px) saturate(180%);
-  -webkit-backdrop-filter: blur(30px) saturate(180%);
-  box-shadow: inset 0 .5px 0 var(--glass-border), 0 0 0 .5px var(--hairline);
+/*
+  Liquid Glass (macOS Tahoe).
+  .lg — прозрачное стекло: лёгкое размытие + насыщенность, яркий блик по краю (::after),
+  внутреннее свечение. В Chromium (html.lg-refract) добавляется преломление по краям —
+  SVG-фильтр #lg-lens внутри backdrop-filter. Где url() не поддерживается — остаётся базовое стекло.
+*/
+.lg {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .20) 0%, rgba(255, 255, 255, .06) 45%, rgba(255, 255, 255, .12) 100%);
+  backdrop-filter: blur(5px) saturate(185%) brightness(1.06);
+  -webkit-backdrop-filter: blur(5px) saturate(185%) brightness(1.06);
+  box-shadow:
+    0 10px 34px rgba(0, 20, 60, .18),
+    0 2px 6px rgba(0, 20, 60, .10),
+    inset 0 0 0 .5px rgba(255, 255, 255, .28),
+    inset 0 1px 1px rgba(255, 255, 255, .55),
+    inset 0 -1px 1px rgba(255, 255, 255, .18),
+    inset 0 0 24px rgba(255, 255, 255, .10);
 }
+/* Спекулярный блик: градиентная рамка 1.2px — ярко сверху-слева и снизу-справа, как у Apple. */
+.lg::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1.2px;
+  pointer-events: none;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, .95) 0%, rgba(255, 255, 255, .25) 22%, rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, .35) 82%, rgba(255, 255, 255, .8) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  z-index: 1;
+}
+html.lg-refract .lg {
+  backdrop-filter: url(#lg-lens) blur(3px) saturate(185%) brightness(1.06);
+}
+/* Более плотный вариант для мелкого текста поверх пёстрого фона (меню, подсказки). */
+.lg-dense {
+  background: linear-gradient(135deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .42));
+  backdrop-filter: blur(18px) saturate(190%);
+  -webkit-backdrop-filter: blur(18px) saturate(190%);
+}
+html.lg-refract .lg-dense { backdrop-filter: url(#lg-lens) blur(14px) saturate(190%); }
+
+@media (prefers-color-scheme: dark) {
+  .lg {
+    background: linear-gradient(135deg, rgba(255, 255, 255, .12) 0%, rgba(255, 255, 255, .03) 45%, rgba(255, 255, 255, .07) 100%);
+    box-shadow:
+      0 10px 34px rgba(0, 0, 0, .35),
+      inset 0 0 0 .5px rgba(255, 255, 255, .16),
+      inset 0 1px 1px rgba(255, 255, 255, .35),
+      inset 0 -1px 1px rgba(255, 255, 255, .08),
+      inset 0 0 24px rgba(255, 255, 255, .05);
+  }
+  .lg::after { opacity: .6; }
+  .lg-dense { background: linear-gradient(135deg, rgba(40, 42, 52, .66), rgba(28, 30, 38, .56)); }
+}
+
+/* Нет backdrop-filter — сплошная полупрозрачная заливка, всё читаемо. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .lg { background: rgba(240, 244, 252, .9); }
+  .lg-dense { background: rgba(246, 246, 248, .96); }
+  @media (prefers-color-scheme: dark) {
+    .lg, .lg-dense { background: rgba(36, 38, 46, .94); }
+  }
+}
+
+/* Окна — плотнее (читаемость текста важнее эффекта), но с тем же бликом. */
 .glass-window {
   background: var(--glass-window);
   backdrop-filter: blur(40px) saturate(170%);
@@ -15,4 +79,9 @@
   backdrop-filter: blur(30px) saturate(180%);
   -webkit-backdrop-filter: blur(30px) saturate(180%);
   box-shadow: var(--shadow-menu), inset 0 .5px 0 var(--glass-border);
+}
+.glass-bar {
+  background: var(--glass-bar);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
 }

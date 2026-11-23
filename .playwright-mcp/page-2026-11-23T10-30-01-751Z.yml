@@ -1,0 +1,31 @@
+- generic [ref=f5e2]:
+  - img "добро пожаловать":
+    - generic:
+      - generic [aria-hidden]: добро пожаловать
+      - generic [aria-hidden]: добро пожаловать
+      - generic [aria-hidden]: добро пожаловать
+      - generic [aria-hidden]: добро пожаловать
+  - generic [ref=f5e11]:
+    - generic [ref=f5e12]: Василий Кулагин
+    - generic [ref=f5e13]: Backend-разработчик · Go
+    - generic [ref=f5e14]: highload · распределённые системы · AI
+    - generic [ref=f5e15]: 5+ лет · Go · PHP · Vue
+    - generic [ref=f5e16]: ● Открыт к предложениям
+  - generic [ref=f5e17]:
+    - generic [ref=f5e18]: GophProfile
+    - generic [ref=f5e21]: GophKeeper
+    - generic [ref=f5e24]: sys-metrics
+    - generic [ref=f5e27]: gophermart-loyalty
+  - navigation "Dock":
+    - generic [ref=f5e30]:
+      - button "Проекты" [ref=f5e31]
+      - button "Об этом разработчике" [ref=f5e32]
+      - button "Стек" [ref=f5e33]
+      - button "Опыт" [ref=f5e34]
+      - button "Контакты" [ref=f5e35]
+      - link "GitHub" [ref=f5e37]:
+        - /url: https://github.com/YNGXZRIST
+      - link "Telegram" [ref=f5e38]:
+        - /url: https://t.me/xzrist
+      - link "vascool66@icloud.com" [ref=f5e39]:
+        - /url: mailto:vascool66@icloud.com

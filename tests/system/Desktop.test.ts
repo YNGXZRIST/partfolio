@@ -6,9 +6,11 @@ import { projects } from '@/content/projects'
 
 beforeEach(() => resetWindows())
 
-it('на обоях ровно «добро пожаловать»', () => {
+it('на обоях ровно «welcome»', () => {
   const c = mount(Desktop)
-  expect(c.find('[data-test="welcome"]').text()).toBe('добро пожаловать')
+  const w = c.find('[data-test="welcome"]')
+  expect(w.attributes('aria-label')).toBe('welcome')
+  w.findAll('.layer').forEach(l => expect(l.text()).toBe('welcome'))
 })
 
 it('виджет — 5 строк по спеке', () => {

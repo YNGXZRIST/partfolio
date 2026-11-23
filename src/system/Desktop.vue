@@ -6,6 +6,7 @@ import ProfileWidget from './ProfileWidget.vue'
 import DesktopIcon from './DesktopIcon.vue'
 import AppPlaceholder from './AppPlaceholder.vue'
 import Dock from './Dock.vue'
+import GlassDefs from './GlassDefs.vue'
 import { projects } from '@/content/projects'
 import type { AppId, WindowId } from '@/content/types'
 import { useWindows } from '@/stores/windows'
@@ -25,6 +26,7 @@ function componentFor(id: WindowId): Component {
 
 <template>
   <div class="desktop" @click="selected = null">
+    <GlassDefs />
     <Wallpaper />
     <Welcome />
     <ProfileWidget />
