@@ -1,0 +1,43 @@
+- generic [ref=f11e2]:
+  - img "welcome":
+    - img [aria-hidden]:
+      - generic: welcome
+    - img [aria-hidden]:
+      - generic: welcome
+      - generic: welcome
+      - generic: welcome
+  - generic [ref=f11e12]:
+    - generic [ref=f11e13]: Василий Кулагин
+    - generic [ref=f11e14]: Backend-разработчик · Go
+    - generic [ref=f11e15]: highload · распределённые системы · AI
+    - generic [ref=f11e16]: 5+ лет · Go · PHP · Vue
+    - generic [ref=f11e17]: ● Открыт к предложениям
+  - generic [ref=f11e18]:
+    - generic [ref=f11e19]: GophProfile
+    - generic [ref=f11e22]: GophKeeper
+    - generic [ref=f11e25]: sys-metrics
+    - generic [ref=f11e28]: gophermart-loyalty
+  - banner [ref=f11e31]:
+    - navigation [ref=f11e32]:
+      - button [ref=f11e34]
+      - button "Василий Кулагин" [ref=f11e36]
+      - button "Проекты" [ref=f11e38]
+      - button "Опыт" [ref=f11e40]
+      - button "Стек" [ref=f11e42]
+      - button "Контакты" [ref=f11e44]
+    - generic [ref=f11e45]:
+      - button "Spotlight" [ref=f11e52]
+      - generic [ref=f11e61]: Пн 23 нояб. 12:35
+  - navigation "Dock":
+    - generic [ref=f11e62]:
+      - button "Проекты" [ref=f11e63]
+      - button "Об этом разработчике" [ref=f11e64]
+      - button "Стек" [ref=f11e65]
+      - button "Опыт" [ref=f11e66]
+      - button "Контакты" [ref=f11e67]
+      - link "GitHub" [ref=f11e69]:
+        - /url: https://github.com/YNGXZRIST
+      - link "Telegram" [ref=f11e70]:
+        - /url: https://t.me/xzrist
+      - link "vascool66@icloud.com" [ref=f11e71]:
+        - /url: mailto:vascool66@icloud.com

@@ -5,6 +5,8 @@ import Welcome from './Welcome.vue'
 import ProfileWidget from './ProfileWidget.vue'
 import DesktopIcon from './DesktopIcon.vue'
 import AppPlaceholder from './AppPlaceholder.vue'
+import AboutDeveloper from '@/apps/AboutDeveloper.vue'
+import Contacts from '@/apps/Contacts.vue'
 import Dock from './Dock.vue'
 import MenuBar from './MenuBar.vue'
 import GlassDefs from './GlassDefs.vue'
@@ -17,7 +19,7 @@ const wm = useWindows()
 const selected = ref<string | null>(null)
 const spotlightOpen = ref(false)
 
-const appComponents: Partial<Record<AppId, Component>> = {}
+const appComponents: Partial<Record<AppId, Component>> = { about: AboutDeveloper, contacts: Contacts }
 const projectComponent: Component | null = null
 
 function componentFor(id: WindowId): Component {

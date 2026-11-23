@@ -16,7 +16,7 @@
   --fill-2: rgba(0, 0, 0, .08);
   --glass-bar: rgba(255, 255, 255, .42);
   --glass-bar-solid: rgba(246, 246, 248, .96);
-  --glass-window: rgba(250, 250, 252, .82);
+  --glass-window: rgba(250, 250, 252, .9);
   --glass-window-solid: #f6f6f8;
   --glass-sidebar: rgba(255, 255, 255, .38);
   --glass-menu: rgba(246, 246, 248, .72);
@@ -36,7 +36,7 @@
     --fill-2: rgba(255, 255, 255, .1);
     --glass-bar: rgba(30, 32, 40, .36);
     --glass-bar-solid: rgba(32, 33, 38, .96);
-    --glass-window: rgba(36, 37, 42, .84);
+    --glass-window: rgba(36, 37, 42, .9);
     --glass-window-solid: #26272c;
     --glass-sidebar: rgba(60, 62, 70, .34);
     --glass-menu: rgba(40, 41, 48, .74);
