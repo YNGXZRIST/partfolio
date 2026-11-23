@@ -4,3 +4,13 @@
 [    8468ms] [WARNING] Origin trial controlled feature not enabled: 'tools'. @ https://public.codepenassets.com/embed/index.js:1
 [    8468ms] [WARNING] Origin trial controlled feature not enabled: 'writer'. @ https://public.codepenassets.com/embed/index.js:1
 [    9628ms] [ERROR] Failed to load CodeMirror: TypeError: Failed to fetch dynamically imported module: https://esm.sh/@codemirror/lang-javascript @ https://freefrontend.com/js/main.cf6d98112ef16ffd87ec78c9e0a4deb6f2b2cf85b7423ff1a042c8e17ee11ba9.js:1
+[   20099ms] [WARNING] Origin trial controlled feature not enabled: 'rewriter'. @ https://codepen.io/anon/embed/dPodbrX?height=300&theme-id=dark&default-tab=result&slug-hash=dPodbrX&editable=true&name=cp_embed_10:175
+[   20099ms] [WARNING] Origin trial controlled feature not enabled: 'writer'. @ https://codepen.io/anon/embed/dPodbrX?height=300&theme-id=dark&default-tab=result&slug-hash=dPodbrX&editable=true&name=cp_embed_10:175
+[   21482ms] [ERROR] Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin @ https://db.onlinewebfonts.com/c/b76e589398b734c21453bb17d93dd7ff?family=PP+Neue+Montreal+Medium:1
+[   22579ms] [WARNING] THREE.WARNING: Multiple instances of Three.js being imported. @ https://esm.sh/three@0.181.2/es2022/build/three.core.mjs:2
+[   22672ms] [WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ https://esm.sh/three@0.187.0/es2022/build/three.core.mjs:2
+[   22951ms] [LOG] 2000 @ pen.js:16
+[   23310ms] [LOG] 2000 @ pen.js:16
+[   24243ms] [LOG] 2000 @ pen.js:16
+[   25008ms] [LOG] 2000 @ pen.js:16
+[   38522ms] [ERROR] Executing inline event handler violates the following Content Security Policy directive 'script-src 'nonce-H-7fRPGIJqA37qg0r0N3xw' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:'. Note that 'unsafe-inline' is ignored if either a hash or nonce value is present in the source list. The action has been blocked. @ https://www.google.com/search?q=liquid+glass+css&oq=liquid+glass+css+&gs_lcrp=EgZjaHJvbWUyCggAEEUYFhgeGDkyBwgBEAAYgAQyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyBwgGEAAYgAQyBwgHEAAYgAQyBwgIEAAYgAQyBwgJEAAYgATSAQg0OTAyajBqN6gCALACAA&sourceid=chrome&source=chrome.ob&ie=UTF-8:1

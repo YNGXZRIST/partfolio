@@ -6,6 +6,7 @@ import ProfileWidget from './ProfileWidget.vue'
 import DesktopIcon from './DesktopIcon.vue'
 import AppPlaceholder from './AppPlaceholder.vue'
 import Dock from './Dock.vue'
+import MenuBar from './MenuBar.vue'
 import GlassDefs from './GlassDefs.vue'
 import { projects } from '@/content/projects'
 import type { AppId, WindowId } from '@/content/types'
@@ -14,6 +15,7 @@ import { asset } from '@/lib/asset'
 
 const wm = useWindows()
 const selected = ref<string | null>(null)
+const spotlightOpen = ref(false)
 
 const appComponents: Partial<Record<AppId, Component>> = {}
 const projectComponent: Component | null = null
@@ -43,6 +45,7 @@ function componentFor(id: WindowId): Component {
 
     <component :is="componentFor(id)" v-for="id in wm.order.value" :id="id" :key="id" />
 
+    <MenuBar @open-spotlight="spotlightOpen = true" />
     <Dock />
     <slot />
   </div>
