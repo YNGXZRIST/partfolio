@@ -5,6 +5,7 @@ import Welcome from './Welcome.vue'
 import ProfileWidget from './ProfileWidget.vue'
 import DesktopIcon from './DesktopIcon.vue'
 import AppPlaceholder from './AppPlaceholder.vue'
+import Dock from './Dock.vue'
 import { projects } from '@/content/projects'
 import type { AppId, WindowId } from '@/content/types'
 import { useWindows } from '@/stores/windows'
@@ -40,6 +41,7 @@ function componentFor(id: WindowId): Component {
 
     <component :is="componentFor(id)" v-for="id in wm.order.value" :id="id" :key="id" />
 
+    <Dock />
     <slot />
   </div>
 </template>
