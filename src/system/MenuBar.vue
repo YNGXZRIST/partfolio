@@ -77,14 +77,14 @@ onBeforeUnmount(() => {
       </div>
     </nav>
     <div class="right">
-      <svg class="ico" viewBox="0 0 24 16" aria-hidden="true"><rect x="1" y="3" width="19" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2" /><rect x="3" y="5" width="13" height="6" rx="1.5" fill="currentColor" /><rect x="21" y="6" width="1.6" height="4" rx=".8" fill="currentColor" /></svg>
-      <svg class="ico" viewBox="0 0 20 16" aria-hidden="true"><path d="M10 13.5l2-2.3a3 3 0 0 0-4 0z M5.2 8.5a6.9 6.9 0 0 1 9.6 0l-1.3 1.4a5 5 0 0 0-7 0z M2.4 5.6a11 11 0 0 1 15.2 0l-1.3 1.4a9 9 0 0 0-12.6 0z" fill="currentColor" /></svg>
+      <svg class="ico bat" viewBox="0 0 27 13" aria-hidden="true"><rect x=".75" y=".75" width="22.5" height="11.5" rx="3.4" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="1.2" /><rect x="2.6" y="2.6" width="18.8" height="7.8" rx="1.9" fill="currentColor" /><path d="M24.8 4.4v4.2c.8-.3 1.4-1.1 1.4-2.1s-.6-1.8-1.4-2.1z" fill="currentColor" fill-opacity=".5" /></svg>
+      <svg class="ico" viewBox="0 0 18 13" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M1.6 4.6a10.4 10.4 0 0 1 14.8 0" /><path d="M4.3 7.4a6.6 6.6 0 0 1 9.4 0" /></g><path d="M9 12.2l2.2-2.4a3.1 3.1 0 0 0-4.4 0z" fill="currentColor" /></svg>
       <button class="mitem ico-btn" data-test="spotlight-btn" aria-label="Spotlight" @click="emit('open-spotlight')">
-        <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6" /><path d="M10 10l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+        <svg class="ico" viewBox="0 0 15 15" aria-hidden="true"><circle cx="6.2" cy="6.2" r="4.9" fill="none" stroke="currentColor" stroke-width="1.7" /><path d="M9.9 9.9l3.6 3.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" /></svg>
       </button>
       <div class="mwrap">
         <button class="mitem ico-btn" :class="{ on: open === 'cc' }" data-test="cc-btn" aria-label="Пункт управления" @click="toggle('cc')">
-          <svg class="ico" viewBox="0 0 18 16" aria-hidden="true"><rect x="1" y="2" width="16" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3" /><circle cx="13.5" cy="4.5" r="1.6" fill="currentColor" /><rect x="1" y="9" width="16" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3" /><circle cx="4.5" cy="11.5" r="1.6" fill="currentColor" /></svg>
+          <svg class="ico" viewBox="0 0 17 15" aria-hidden="true"><defs><mask id="cc-cut"><rect width="17" height="15" fill="#fff" /><circle cx="12.6" cy="11.1" r="2.15" fill="#000" /></mask></defs><rect x="1.05" y="1.05" width="14.9" height="5.6" rx="2.8" fill="none" stroke="currentColor" stroke-width="1.3" /><circle cx="4.15" cy="3.85" r="2.15" fill="currentColor" /><rect x=".4" y="7.8" width="16.2" height="6.6" rx="3.3" fill="currentColor" mask="url(#cc-cut)" /></svg>
         </button>
         <div v-if="open === 'cc'" class="cc lg lg-dense" data-test="control-center">
           <div class="cc-tile">
@@ -125,7 +125,8 @@ onBeforeUnmount(() => {
 :root[data-theme="dark"] .mitem.on { background: rgba(255, 255, 255, .18); }
 .apple-logo { height: 15px; filter: brightness(0); }
 :root[data-theme="dark"] .apple-logo { filter: brightness(0) invert(1); }
-.ico { width: 18px; height: 15px; opacity: .9; }
+.ico { width: 17px; height: 14px; }
+.ico.bat { width: 26px; height: 12px; }
 .ico-btn { padding: 0 4px; }
 .clock { padding: 0 4px; font-variant-numeric: tabular-nums; }
 .cc { position: absolute; top: calc(100% + 4px); right: -40px; width: 300px; padding: 10px; border-radius: 22px; z-index: 9500; color: var(--text); text-shadow: none; }

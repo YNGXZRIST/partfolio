@@ -4,11 +4,12 @@ import Wallpaper from './Wallpaper.vue'
 import Welcome from './Welcome.vue'
 import ProfileWidget from './ProfileWidget.vue'
 import DesktopIcon from './DesktopIcon.vue'
-import AppPlaceholder from './AppPlaceholder.vue'
 import AboutDeveloper from '@/apps/AboutDeveloper.vue'
 import Contacts from '@/apps/Contacts.vue'
 import Finder from '@/apps/Finder.vue'
 import ProjectPage from '@/apps/ProjectPage.vue'
+import Settings from '@/apps/Settings.vue'
+import CalendarApp from '@/apps/CalendarApp.vue'
 import Dock from './Dock.vue'
 import MenuBar from './MenuBar.vue'
 import GlassDefs from './GlassDefs.vue'
@@ -21,12 +22,11 @@ const wm = useWindows()
 const selected = ref<string | null>(null)
 const spotlightOpen = ref(false)
 
-const appComponents: Partial<Record<AppId, Component>> = { about: AboutDeveloper, contacts: Contacts, finder: Finder }
-const projectComponent: Component | null = ProjectPage
+const appComponents: Record<AppId, Component> = { about: AboutDeveloper, contacts: Contacts, finder: Finder, settings: Settings, calendar: CalendarApp }
 
 function componentFor(id: WindowId): Component {
-  if (id.startsWith('project:')) return projectComponent ?? AppPlaceholder
-  return appComponents[id as AppId] ?? AppPlaceholder
+  if (id.startsWith('project:')) return ProjectPage
+  return appComponents[id as AppId]
 }
 </script>
 

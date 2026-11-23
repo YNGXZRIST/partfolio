@@ -1,0 +1,111 @@
+- generic [ref=f18e2]:
+  - img "welcome":
+    - img [aria-hidden]:
+      - generic: welcome
+    - img [aria-hidden]:
+      - generic: welcome
+      - generic: welcome
+      - generic: welcome
+  - generic [ref=f18e12]:
+    - generic [ref=f18e13]: Василий Кулагин
+    - generic [ref=f18e14]: Backend-разработчик · Go
+    - generic [ref=f18e15]: highload · распределённые системы · AI
+    - generic [ref=f18e16]: 5+ лет · Go · PHP · Vue
+    - generic [ref=f18e17]: ● Открыт к предложениям
+  - generic [ref=f18e18]:
+    - generic [ref=f18e19]: GophProfile
+    - generic [ref=f18e22]: GophKeeper
+    - generic [ref=f18e25]: sys-metrics
+    - generic [ref=f18e28]: gophermart-loyalty
+  - dialog "Опыт" [ref=f18e85]:
+    - generic [ref=f18e86]:
+      - banner [ref=f18e87]:
+        - generic [ref=f18e88]: Опыт
+        - generic [ref=f18e90]:
+          - generic [ref=f18e91]: День
+          - generic [ref=f18e92]: Неделя
+          - generic [ref=f18e93]: Месяц
+          - generic [ref=f18e94]: Год
+      - generic [ref=f18e96]:
+        - generic [ref=f18e97]:
+          - generic [ref=f18e98]: 2021 — 2026
+          - generic [ref=f18e99]:
+            - generic [ref=f18e100]:
+              - generic [ref=f18e101]: "2021"
+              - generic [ref=f18e102]: "2022"
+              - generic [ref=f18e103]: "2023"
+              - generic [ref=f18e104]: "2024"
+              - generic [ref=f18e105]: "2025"
+              - generic [ref=f18e106]: "2026"
+            - generic [ref=f18e107]:
+              - button "R-брокер март 2023 — по наст. время" [ref=f18e114]:
+                - generic [ref=f18e115]: R-брокер
+                - generic [ref=f18e116]: март 2023 — по наст. время
+              - button "TonyLead Company ноябрь 2021 — октябрь 2023" [ref=f18e117]:
+                - generic [ref=f18e118]: TonyLead Company
+                - generic [ref=f18e119]: ноябрь 2021 — октябрь 2023
+              - button "ООО «Лемборган Техно» октябрь 2022 — февраль 2023" [ref=f18e120]:
+                - generic [ref=f18e121]: ООО «Лемборган Техно»
+                - generic [ref=f18e122]: октябрь 2022 — февраль 2023
+          - paragraph [ref=f18e123]: Нажмите на событие, чтобы увидеть подробности
+        - complementary [ref=f18e124]:
+          - heading "R-брокер" [level=3] [ref=f18e126]
+          - generic [ref=f18e127]: Разработчик · Go / PHP (Yii, Vue.js)
+          - generic [ref=f18e128]: март 2023 — по наст. время · 3 г. 9 мес. · Москва
+          - generic [ref=f18e129]: Highload-платформа автоматизации контекстной рекламы
+          - list [ref=f18e130]:
+            - listitem [ref=f18e131]: "Принимал ключевые технические решения и отвечал за результат: общение с заказчиками, сбор требований, оценка сроков, выбор архитектуры."
+            - listitem [ref=f18e132]: "Разрабатывал микросервисы на Go: анализ и подсчёт токенов, конвертация данных для компактной передачи в LLM."
+            - listitem [ref=f18e133]: "Разрабатывал и поддерживал серверную часть highload-системы управления рекламой (Яндекс.Директ, Google Ads, Avito): десятки фоновых воркеров и крон-задач — биллинг, синхронизация контрагентов, проверки аккаунтов, прогнозы, сбор статистики."
+            - listitem [ref=f18e134]: "Разработал систему оркестрации ИИ и чатов: маршрутизация запросов между агентами и LLM, контекст диалогов, потоковые ответы и вызов инструментов."
+            - listitem [ref=f18e135]: "Проектировал и развивал MCP-системы: серверное исполнение MCP-задач (очередь, процессы, отчёты), MCP-ассистенты с рекомендациями по кампаниям."
+            - listitem [ref=f18e136]: "Разрабатывал систему анализа рекламных кампаний: сбор и агрегация статистики, метрики эффективности (CR, CPA, конверсии), воронки."
+            - listitem [ref=f18e137]: Реализовал автоматические аудиты и отчёты для рекламодателей; писал кастомные скиллы ИИ-агента для компании-партнёра.
+            - listitem [ref=f18e138]: Создавал Chrome-расширения с MCP-ассистентами и Telegram-интеграции (вебхуки, уведомления, дежурства).
+            - listitem [ref=f18e139]: Исправлял баги с фокусом на корневую причину — например, переписал применение орфографических правок объявлений, устранив ~95% сбоев.
+          - generic [ref=f18e140]:
+            - generic [ref=f18e141]: Go
+            - generic [ref=f18e142]: PHP
+            - generic [ref=f18e143]: Yii
+            - generic [ref=f18e144]: Laravel
+            - generic [ref=f18e145]: Python
+            - generic [ref=f18e146]: Vue.js
+            - generic [ref=f18e147]: MCP
+            - generic [ref=f18e148]: LLM
+            - generic [ref=f18e149]: MySQL
+            - generic [ref=f18e150]: REST API
+    - generic [ref=f18e151]:
+      - button "Закрыть" [ref=f18e152]
+      - button "Свернуть" [ref=f18e155]
+      - button "Развернуть" [ref=f18e157]
+  - banner [ref=f18e31]:
+    - navigation [ref=f18e32]:
+      - button [ref=f18e34]
+      - button "Василий Кулагин" [ref=f18e36]
+      - button "Проекты" [ref=f18e38]
+      - button "Опыт" [ref=f18e40]
+      - button "Стек" [ref=f18e42]
+      - button "Контакты" [ref=f18e44]
+    - generic [ref=f18e45]:
+      - button "Spotlight" [ref=f18e55]
+      - generic [ref=f18e59]:
+        - button "Пункт управления" [active] [ref=f18e60]
+        - generic [ref=f18e170]:
+          - generic [ref=f18e171]: Оформление
+          - generic [ref=f18e172]:
+            - button "Тёмное" [ref=f18e173]
+            - button "Светлое" [ref=f18e176]
+      - generic [ref=f18e65]: Пн 23 нояб. 12:43
+  - navigation "Dock":
+    - generic [ref=f18e66]:
+      - button "Проекты" [ref=f18e68]
+      - button "Об этом разработчике" [ref=f18e70]
+      - button "Стек" [ref=f18e72]
+      - button "Опыт" [ref=f18e74]
+      - button "Контакты" [ref=f18e76]
+      - link "GitHub" [ref=f18e79]:
+        - /url: https://github.com/YNGXZRIST
+      - link "Telegram" [ref=f18e81]:
+        - /url: https://t.me/xzrist
+      - link "vascool66@icloud.com" [ref=f18e83]:
+        - /url: mailto:vascool66@icloud.com
