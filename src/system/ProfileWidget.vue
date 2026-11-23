@@ -8,6 +8,15 @@ import { prefersReducedMotion } from '@/lib/motion'
 
 const wm = useWindows()
 const el = ref<HTMLElement | null>(null)
+const shown = ref(true)
+
+/** Клик — как по уведомлению macOS: открываем «Обо мне», баннер уходит вверх и исчезает. */
+async function openAbout() {
+  wm.activate('about')
+  if (el.value && !prefersReducedMotion())
+    await new Promise<void>(res => gsap.to(el.value, { y: -120, opacity: 0, duration: 0.35, ease: 'power2.in', onComplete: res }))
+  shown.value = false
+}
 
 // Появляется как баннер уведомления macOS: опускается сверху с лёгкой пружиной.
 onMounted(() => {
@@ -17,8 +26,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="el" class="widget lg" data-test="widget" role="button" tabindex="0" aria-label="Открыть «Обо мне»"
-       @click="wm.activate('about')" @keydown.enter="wm.activate('about')">
+  <div v-if="shown" ref="el" class="widget lg" data-test="widget" role="button" tabindex="0" aria-label="Открыть «Обо мне»"
+       @click="openAbout" @keydown.enter="openAbout">
     <div class="n-head"><span class="n-app"><img :src="asset('about.svg')" alt="">ПОРТФОЛИО</span><span class="n-time">сейчас</span></div>
     <div class="n-body">
     <img class="ava" :src="asset(profile.avatar)" alt="">

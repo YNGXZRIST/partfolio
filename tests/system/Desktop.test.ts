@@ -45,4 +45,6 @@ it('пуш — уведомление: шапка «Портфолио», кли
   expect(n.find('.n-app').text()).toContain('ПОРТФОЛИО')
   await n.trigger('click')
   expect(w.windows.value.has('about')).toBe(true)
+  await new Promise(r => setTimeout(r, 0))
+  expect(c.find('[data-test="widget"]').exists()).toBe(false)
 })
