@@ -33,16 +33,14 @@ it('на рабочем столе папки проектов, двойной �
   expect(useWindows().windows.value.has('project:gophprofile')).toBe(true)
 })
 
-it('при загрузке открывается «Обо мне»', () => {
+it('при загрузке окна закрыты — виден welcome', () => {
   mount(Desktop)
-  const w = useWindows()
-  expect(w.activeId.value).toBe('about')
+  expect(useWindows().windows.value.size).toBe(0)
 })
 
 it('пуш — уведомление: шапка «Портфолио», клик открывает «Обо мне»', async () => {
   const c = mount(Desktop)
   const w = useWindows()
-  w.close('about')
   const n = c.find('[data-test="widget"]')
   expect(n.find('.n-app').text()).toContain('ПОРТФОЛИО')
   await n.trigger('click')
