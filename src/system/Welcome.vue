@@ -76,8 +76,9 @@ onBeforeUnmount(() => window.removeEventListener('resize', layout))
   position: absolute; inset: 0;
   clip-path: url(#wl-clip);
   background: linear-gradient(180deg, rgba(255, 255, 255, .34) 0%, rgba(255, 255, 255, .08) 55%, rgba(255, 255, 255, .2) 100%);
-  backdrop-filter: blur(3px) saturate(230%) brightness(1.32);
-  -webkit-backdrop-filter: blur(3px) saturate(230%) brightness(1.32);
+  /* Только лёгкое размытие: насыщенность/яркость перекрашивали буквы в сплошной синий. */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 .shadow text { fill: rgba(30, 10, 110, .28); filter: blur(9px); }
 .edge { fill: none; stroke: rgba(40, 20, 150, .38); stroke-width: 1.6; }

@@ -31,12 +31,15 @@ const items: Item[] = [
   ...enabledLinks.map(l => ({ key: l.id, label: l.id === 'email' ? l.value : l.label, icon: asset(l.icon), href: l.href, external: !l.href.startsWith('mailto:') })),
 ]
 
+let raf = 0
+let pendingX = 0
 function onMove(e: MouseEvent) {
   // Центры слотов меряются один раз при входе, пока смещений нет, — дальше считаем от них.
   if (!centers.value.length) centers.value = slotEls.value.map(el => { const r = el.getBoundingClientRect(); return r.left + r.width / 2 })
-  mouseX.value = e.clientX
+  pendingX = e.clientX
+  if (!raf) raf = requestAnimationFrame(() => { raf = 0; mouseX.value = pendingX })
 }
-function onLeave() { mouseX.value = null; centers.value = [] }
+function onLeave() { if (raf) { cancelAnimationFrame(raf); raf = 0 } mouseX.value = null; centers.value = [] }
 
 /** Масштаб каждой иконки и смещение, раздвигающее соседей — как в macOS. */
 const layout = computed(() => {
@@ -88,17 +91,17 @@ const slotStyle = (i: number) => ({ transform: `translateX(${layout.value.offs[i
 .dock { pointer-events: auto; position: relative; display: flex; align-items: flex-end; gap: 10px; padding: 7px 12px; }
 .dock-bg {
   position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
-  border-radius: 26px; z-index: -1; transition: width .12s ease-out;
+  border-radius: 26px; z-index: -1; transition: width .18s ease-out;
 }
 .dock-item {
   position: relative; flex: none; width: 54px; height: 54px; padding: 0; border: 0; background: none; cursor: default;
-  display: block; color: inherit; transition: transform .12s ease-out;
+  display: block; color: inherit; transition: transform .18s ease-out;
 }
 .bob { position: absolute; inset: 0; display: block; }
 .bob img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none;
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .22));
-  transform: scale(var(--k, 1)); transform-origin: 50% 100%; transition: transform .12s ease-out;
+  transform: scale(var(--k, 1)); transform-origin: 50% 100%; transition: transform .18s ease-out;
 }
 .dock-tip {
   position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(54px * var(--k, 1) + 12px);
@@ -106,6 +109,9 @@ const slotStyle = (i: number) => ({ transform: `translateX(${layout.value.offs[i
   opacity: 0; pointer-events: none; transition: opacity .1s;
 }
 .dock-item:hover .dock-tip { opacity: 1; }
+/* Пока курсор над Dock — без CSS-переходов: иконки идут за курсором кадр в кадр, без «догоняния». */
+.dock.hot .dock-item, .dock.hot .bob img, .dock.hot .dock-sep, .dock.hot .dock-bg { transition: none; }
+.dock-item, .bob img { will-change: transform; }
 .dock-item:active .bob img { filter: brightness(.6) drop-shadow(0 2px 3px rgba(0, 0, 0, .22)); }
 .dock-dot { position: absolute; bottom: -6px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--text); opacity: .75; }
 .dock-sep { flex: none; align-self: stretch; width: 1px; margin: 4px 2px; background: rgba(255, 255, 255, .45); transition: transform .12s ease-out; }
